@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Button, Input } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 import AddApplicationModal from "./AddApplicationModal";
+import { useModal } from "@/hooks/use-modal";
 
 export default function DashboardHeader() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const { open, handleOpen, handleClose } = useModal();
 
   return (
     <>
@@ -18,13 +18,13 @@ export default function DashboardHeader() {
             prefix={<SearchOutlined className="text-gray-400" />}
             style={{ width: 220 }}
           />
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setModalOpen(true)}>
+          <Button type="primary" icon={<PlusOutlined />} onClick={handleOpen}>
             Add Application
           </Button>
         </div>
       </div>
 
-      <AddApplicationModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <AddApplicationModal open={open} onClose={handleClose} />
     </>
   );
 }

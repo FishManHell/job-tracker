@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import AddApplicationModal from "@/components/dashboard/AddApplicationModal";
+import { useModal } from "@/hooks/use-modal";
 
 export default function AddApplicationButton() {
-  const [open, setOpen] = useState(false);
+  const { open, handleOpen, handleClose } = useModal();
 
   return (
     <>
-      <Button type="primary" icon={<PlusOutlined />} size="large" onClick={() => setOpen(true)}>
+      <Button type="primary" icon={<PlusOutlined />} size="large" onClick={handleOpen}>
         Add Application
       </Button>
-      <AddApplicationModal open={open} onClose={() => setOpen(false)} />
+      <AddApplicationModal open={open} onClose={handleClose} />
     </>
   );
 }
