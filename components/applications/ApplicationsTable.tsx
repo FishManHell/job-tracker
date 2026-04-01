@@ -47,7 +47,7 @@ export default function ApplicationsTable({
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  // Оновлення URL при зміні фільтрів/пагінації
+  // Update URL when filters or pagination change
   function updateParams(updates: Record<string, string | undefined>) {
     const params = new URLSearchParams();
     if (currentStatus) params.set("status", currentStatus);
@@ -59,7 +59,7 @@ export default function ApplicationsTable({
       else params.delete(key);
     }
 
-    // Скидаємо сторінку при зміні фільтрів
+    // Reset to page 1 when filters change
     if ("status" in updates || "search" in updates) params.set("page", "1");
 
     startTransition(() => router.push(`${pathname}?${params.toString()}`));

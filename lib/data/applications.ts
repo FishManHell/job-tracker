@@ -2,8 +2,8 @@ import { prisma } from "@/lib/prisma";
 import type { ApplicationStatus } from "@/types/application";
 import type { Application } from "@prisma/client";
 
-// Date-об'єкти не можна передавати в Client Components як props —
-// тому серіалізуємо їх у рядки на рівні Server Component.
+// Date objects cannot be passed to Client Components as props —
+// serialize them to strings at the Server Component level.
 export type SerializedApplication = Omit<Application, "appliedAt" | "createdAt" | "updatedAt"> & {
   appliedAt: string;
   createdAt: string;
@@ -19,7 +19,7 @@ export function serializeApplication(app: Application): SerializedApplication {
   };
 }
 
-// ─── Статистика для Dashboard ─────────────────────────────────────────────────
+// ─── Dashboard stats ──────────────────────────────────────────────────────────
 
 export interface ApplicationStats {
   total:     number;
@@ -53,7 +53,7 @@ export async function getApplicationStats(userId: string): Promise<ApplicationSt
   };
 }
 
-// ─── Останні заявки для Dashboard ────────────────────────────────────────────
+// ─── Recent applications for Dashboard ───────────────────────────────────────
 
 export async function getRecentApplications(
   userId: string,
@@ -68,7 +68,7 @@ export async function getRecentApplications(
   return apps.map(serializeApplication);
 }
 
-// ─── Список заявок для Applications page ─────────────────────────────────────
+// ─── Paginated list for Applications page ────────────────────────────────────
 
 export interface GetApplicationsParams {
   status?: ApplicationStatus;

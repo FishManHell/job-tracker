@@ -7,7 +7,7 @@ import type { SerializedApplication } from "@/lib/data/applications";
 import type { ApplicationStatus } from "@/types/application";
 import { STATUS_CONFIG } from "@/lib/status-config";
 
-// Детермінований колір аватару компанії по імені
+// Deterministic company avatar color based on name
 function getCompanyColor(name: string): string {
   const palette = ["#6366f1", "#3b82f6", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981", "#ef4444", "#14b8a6"];
   let hash = 0;

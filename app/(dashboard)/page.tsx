@@ -9,7 +9,7 @@ export default async function DashboardPage() {
   const session = await auth();
   const userId  = session!.user!.id!;
 
-  // Обидва запити паралельно — не чекаємо один на одного
+  // Run both queries in parallel
   const [stats, recentApps] = await Promise.all([
     getApplicationStats(userId),
     getRecentApplications(userId),

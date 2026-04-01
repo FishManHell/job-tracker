@@ -16,7 +16,7 @@ export default function PipelineOverview({ stats }: Props) {
     { label: "Rejected",  count: stats.rejected,  color: "#ef4444" },
   ];
 
-  const total = stats.total || 1; // уникаємо ділення на 0
+  const total = stats.total || 1; // avoid division by zero
 
   return (
     <Card title="Pipeline Overview">

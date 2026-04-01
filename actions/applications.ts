@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import type { ActionState } from "@/types/auth";
 import type { AddApplicationFormValues } from "@/types/application";
 
-// Хелпер: отримати userId або кинути помилку — щоб не дублювати в кожній дії
+// Helper: get userId from session or throw — avoids duplication across actions
 async function requireUserId(): Promise<string> {
   const session = await auth();
   if (!session?.user?.id) throw new Error("Unauthorized");
@@ -53,7 +53,7 @@ export async function updateApplication(
 ): Promise<ActionState> {
   const userId = await requireUserId();
 
-  // Перевіряємо що заявка належить поточному юзеру
+  // Verify the application belongs to the current user
   const existing = await prisma.application.findUnique({ where: { id } });
   if (!existing || existing.userId !== userId) {
     return { error: "Application not found" };

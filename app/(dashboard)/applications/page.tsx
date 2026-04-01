@@ -4,7 +4,7 @@ import { ApplicationStatus } from "@/types/application";
 import ApplicationsTable from "@/components/applications/ApplicationsTable";
 import AddApplicationButton from "@/components/applications/AddApplicationButton";
 
-// searchParams в Next.js 15+ — це Promise
+// searchParams in Next.js 16 is a Promise
 interface PageProps {
   searchParams: Promise<{ status?: string; search?: string; page?: string }>;
 }
@@ -14,7 +14,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
   const userId  = session!.user!.id!;
   const params  = await searchParams;
 
-  // Валідуємо status — приймаємо тільки відомі значення enum
+  // Validate status — only accept known enum values
   const validStatuses = Object.values(ApplicationStatus) as string[];
   const status = params.status && validStatuses.includes(params.status)
     ? (params.status as typeof ApplicationStatus[keyof typeof ApplicationStatus])
