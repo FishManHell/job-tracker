@@ -57,6 +57,7 @@ export default function AddApplicationModal({ open, onClose }: Props) {
       }
       footer={null}
       width={560}
+      centered
       destroyOnHidden
     >
       {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 16 }} />}
@@ -67,7 +68,9 @@ export default function AddApplicationModal({ open, onClose }: Props) {
         requiredMark={false}
         onFinish={onFinish}
         initialValues={{ status: "APPLIED", currency: "USD", remote: false }}
+        style={{ marginTop: 8 }}
       >
+
         <Row gutter={12}>
           <Col span={12}>
             <Form.Item label="Company" name="companyName" rules={[{ required: true, message: "Enter company name" }]}>
@@ -103,8 +106,8 @@ export default function AddApplicationModal({ open, onClose }: Props) {
           </Col>
         </Row>
 
-        <Form.Item name="remote" valuePropName="checked">
-          <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-3 border border-gray-200">
+        <Form.Item name="remote" valuePropName="checked" style={{ marginBottom: 8 }}>
+          <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2 border border-gray-200">
             <div>
               <p className="text-sm font-medium text-gray-700">Remote position</p>
               <p className="text-xs text-gray-400">Toggle if this is a remote job</p>
@@ -113,11 +116,9 @@ export default function AddApplicationModal({ open, onClose }: Props) {
           </div>
         </Form.Item>
 
-        <Divider style={{ margin: "4px 0 16px" }} />
-
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-3">
-          Salary Range (optional)
-        </p>
+        <Divider style={{ margin: "8px 0 12px" }}>
+          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Salary Range (optional)</span>
+        </Divider>
         <Row gutter={12}>
           <Col span={8}>
             <Form.Item name="currency" label="Currency">
@@ -149,14 +150,14 @@ export default function AddApplicationModal({ open, onClose }: Props) {
           </Col>
         </Row>
 
-        <Divider style={{ margin: "4px 0 16px" }} />
+        <Divider style={{ margin: "4px 0 12px" }} />
 
-        <Form.Item label="Job posting URL" name="jobUrl">
+        <Form.Item label="Job posting URL" name="jobUrl" style={{ marginBottom: 12 }}>
           <Input prefix={<LinkOutlined className="text-gray-400" />} placeholder="https://jobs.company.com/..." size="large" />
         </Form.Item>
 
-        <Form.Item label="Notes" name="notes">
-          <TextArea placeholder="Referral contact, recruiter name, cover letter notes..." rows={3} style={{ resize: "none" }} />
+        <Form.Item label="Notes" name="notes" style={{ marginBottom: 12 }}>
+          <TextArea placeholder="Referral contact, recruiter name, cover letter notes..." rows={2} style={{ resize: "none" }} />
         </Form.Item>
 
         <div className="flex gap-3 justify-end pt-2">

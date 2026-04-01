@@ -3,8 +3,9 @@
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme as antdTheme } from "antd";
 import { useResolvedTheme } from "@/hooks/use-resolved-theme";
+import {ReactNode} from "react";
 
-export default function AntdProvider({ children }: { children: React.ReactNode }) {
+export default function AntdProvider({ children }: { children: ReactNode }) {
   const { isDark } = useResolvedTheme();
 
   return (
