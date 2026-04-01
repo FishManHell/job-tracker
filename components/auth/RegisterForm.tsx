@@ -1,18 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Input, Divider, Alert, Form } from "antd";
+import { Button, Input, Divider, Form } from "antd";
+import FormAlert from "@/components/common/FormAlert";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { register, loginWithGoogle } from "@/actions/auth";
 import { useFormAction } from "@/hooks/use-form-action";
 import GoogleIcon from "@/components/icons/GoogleIcon";
-
-type RegisterValues = {
-  name:            string;
-  email:           string;
-  password:        string;
-  confirmPassword: string;
-};
+import type { RegisterValues } from "@/types/auth";
+import { ROUTES } from "@/lib/routes";
 
 export default function RegisterForm() {
   const { error, isPending, handleSubmit } = useFormAction<RegisterValues>(
@@ -44,7 +40,7 @@ export default function RegisterForm() {
 
       <Divider plain style={{ color: "#9ca3af", fontSize: 12 }}>or register with email</Divider>
 
-      {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 16 }} />}
+      <FormAlert message={error} />
 
       <Form layout="vertical" requiredMark={false} onFinish={handleSubmit}>
         <Form.Item label="Full name" name="name" rules={[{ required: true, message: "Enter your name" }]}>
@@ -91,7 +87,7 @@ export default function RegisterForm() {
 
       <p className="text-center text-sm text-gray-500 mt-2">
         Already have an account?{" "}
-        <Link href="/login" style={{ color: "#6366f1", fontWeight: 500 }}>Sign in</Link>
+        <Link href={ROUTES.LOGIN} style={{ color: "#6366f1", fontWeight: 500 }}>Sign in</Link>
       </p>
     </>
   );

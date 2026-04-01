@@ -3,8 +3,9 @@
 import { useState, useTransition } from "react";
 import {
   Modal, Form, Input, Select, Switch,
-  InputNumber, Button, Alert, Divider, Row, Col,
+  InputNumber, Button, Divider, Row, Col,
 } from "antd";
+import FormAlert from "@/components/common/FormAlert";
 import { BankOutlined, LinkOutlined, EnvironmentOutlined, DollarOutlined } from "@ant-design/icons";
 import type { AddApplicationFormValues } from "@/types/application";
 import { Currency } from "@/types/common";
@@ -63,7 +64,7 @@ export default function AddApplicationModal({ open, onClose }: AddApplicationMod
       centered
       destroyOnHidden
     >
-      {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 16 }} />}
+      <FormAlert message={error} />
 
       <Form
         form={form}

@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Input, Divider, Alert, Form } from "antd";
+import { Button, Input, Divider, Form } from "antd";
+import FormAlert from "@/components/common/FormAlert";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { login, loginWithGoogle } from "@/actions/auth";
 import { useFormAction } from "@/hooks/use-form-action";
 import GoogleIcon from "@/components/icons/GoogleIcon";
-
-type LoginValues = { email: string; password: string };
+import type { LoginValues } from "@/types/auth";
+import { ROUTES } from "@/lib/routes";
 
 export default function LoginForm() {
   const { error, isPending, handleSubmit } = useFormAction<LoginValues>(
@@ -37,7 +38,7 @@ export default function LoginForm() {
 
       <Divider plain style={{ color: "#9ca3af", fontSize: 12 }}>or sign in with email</Divider>
 
-      {error && <Alert message={error} type="error" showIcon style={{ marginBottom: 16 }} />}
+      <FormAlert message={error} />
 
       <Form layout="vertical" requiredMark={false} onFinish={handleSubmit}>
         <Form.Item label="Email" name="email" rules={[{ required: true, type: "email" }]}>
@@ -66,7 +67,7 @@ export default function LoginForm() {
 
       <p className="text-center text-sm text-gray-500 mt-2">
         Don&apos;t have an account?{" "}
-        <Link href="/register" style={{ color: "#6366f1", fontWeight: 500 }}>Sign up</Link>
+        <Link href={ROUTES.REGISTER} style={{ color: "#6366f1", fontWeight: 500 }}>Sign up</Link>
       </p>
     </>
   );

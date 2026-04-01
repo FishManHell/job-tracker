@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Card, Form, Input, Button, Divider, Tag, Avatar, Alert } from "antd";
+import { Card, Form, Input, Button, Divider, Tag, Avatar } from "antd";
+import FormAlert from "@/components/common/FormAlert";
 import { UserOutlined, MailOutlined, LockOutlined, EditOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import type { ProfileFormValues, PasswordChangeFormValues } from "@/types/auth";
 
@@ -53,9 +54,13 @@ export default function ProfilePage() {
                 <Avatar size={72} style={{ backgroundColor: "#6366f1", fontSize: 24, fontWeight: 700, border: "3px solid white" }}>
                   DZ
                 </Avatar>
-                <button className="absolute -bottom-0.5 -right-0.5 w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center border-2 border-white hover:bg-indigo-600 transition-colors">
-                  <EditOutlined style={{ fontSize: 10, color: "#fff" }} />
-                </button>
+                <Button
+                  type="primary"
+                  shape="circle"
+                  size="small"
+                  icon={<EditOutlined style={{ fontSize: 10 }} />}
+                  className="absolute! -bottom-0.5! -right-0.5! w-6! h-6! min-w-0! border-2! border-white!"
+                />
               </div>
               <div className="flex items-center gap-2">
                 <Tag color="purple" icon={<CheckCircleOutlined />}>Pro Plan</Tag>
@@ -89,9 +94,7 @@ export default function ProfilePage() {
             )
           }
         >
-          {profileSaved && (
-            <Alert message="Profile updated successfully" type="success" showIcon style={{ marginBottom: 16 }} />
-          )}
+          <FormAlert message={profileSaved ? "Profile updated successfully" : null} type="success" />
           <Form
             form={profileForm}
             layout="vertical"
@@ -122,9 +125,7 @@ export default function ProfilePage() {
         <Card
           title={<div className="flex items-center gap-2"><LockOutlined style={{ color: "#6366f1" }} /><span>Change Password</span></div>}
         >
-          {passwordSaved && (
-            <Alert message="Password changed successfully" type="success" showIcon style={{ marginBottom: 16 }} />
-          )}
+          <FormAlert message={passwordSaved ? "Password changed successfully" : null} type="success" />
           <Form form={passwordForm} layout="vertical" requiredMark={false} onFinish={savePassword}>
             <Form.Item label="Current password" name="currentPassword" rules={[{ required: true }]}>
               <Input.Password prefix={<LockOutlined className="text-gray-400" />} placeholder="••••••••" size="large" />
