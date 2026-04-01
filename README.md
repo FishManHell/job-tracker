@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 📋 JobTracker
 
-First, run the development server:
+**Your personal job search command center.**
+Track applications, monitor your pipeline, and land that offer.
+
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-job--tracker--tau--two.vercel.app-6366f1?style=for-the-badge)](https://job-tracker-tau-two.vercel.app)
+
+![Next.js](https://img.shields.io/badge/Next.js_16-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-black?style=flat-square&logo=vercel)
+
+</div>
+
+---
+
+## ✨ What is JobTracker?
+
+JobTracker is a full-stack web app that helps you organize your job hunt from the first application to the final offer. No more losing track of where you applied, who you spoke with, or what comes next.
+
+---
+
+## 🖥️ Features
+
+| Feature | Description |
+|---------|-------------|
+| 📊 **Dashboard** | At-a-glance stats: total applied, in progress, interviews, offers |
+| 📋 **Applications** | Add, search, filter by status, paginate, delete |
+| 🔐 **Authentication** | Email/password + Google OAuth — JWT sessions |
+| 🌗 **Dark / Light mode** | Persisted theme switcher |
+| 🔒 **Protected routes** | All dashboard pages require a valid session |
+
+---
+
+## 🏗️ Tech Stack
+
+```
+Frontend    Next.js 16 (App Router) · TypeScript · Tailwind CSS · Ant Design
+Backend     Next.js Server Actions · NextAuth v5 (JWT)
+Database    Supabase PostgreSQL · Prisma ORM
+Deploy      Vercel
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** 20+
+- A free [Supabase](https://supabase.com) project
+
+### 1. Clone & install
+
+```bash
+git clone https://github.com/FishManHell/job-tracker.git
+cd job-tracker
+npm install
+```
+
+### 2. Configure environment
+
+```bash
+cp .env.example .env
+```
+
+```env
+# Database (Supabase)
+DATABASE_URL="postgresql://postgres.[ref]:[password]@aws-1-[region].pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres.[ref]:[password]@[region].supabase.com:5432/postgres"
+
+# Auth
+AUTH_SECRET=""       # openssl rand -base64 32
+NEXTAUTH_URL="http://localhost:3000"
+
+# Google OAuth (optional)
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+```
+
+### 3. Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) — done.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+├── app/
+│   ├── (auth)/              # /login, /register
+│   └── (dashboard)/         # protected pages
+│       ├── page.tsx          # Dashboard
+│       ├── applications/
+│       ├── interviews/
+│       ├── companies/
+│       ├── analytics/
+│       ├── settings/
+│       └── profile/
+├── actions/                  # Server Actions — auth & CRUD
+├── components/
+│   ├── applications/         # Table, filters, add button
+│   ├── auth/                 # Login & register forms
+│   ├── dashboard/            # Stats, pipeline, recent apps
+│   ├── layout/               # Sidebar navigation
+│   └── providers/            # Antd & theme providers
+├── lib/
+│   ├── auth.ts               # NextAuth configuration
+│   ├── prisma.ts             # Prisma client
+│   └── data/                 # DB read queries
+├── prisma/
+│   └── schema.prisma         # DB schema
+└── proxy.ts                  # Auth guard (Next.js 16)
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔄 Application Status Flow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+  APPLIED ──► SCREENING ──► INTERVIEW ──► OFFER ✅
+                                    │
+                                    ├──► REJECTED ❌
+                                    └──► WITHDRAWN 🚫
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT © [FishManHell](https://github.com/FishManHell)
