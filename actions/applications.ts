@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import type { ActionState } from "@/types/auth";
 import type { AddApplicationFormValues } from "@/types/application";
+import { ROUTES } from "@/lib/routes";
 
 // Helper: get userId from session or throw — avoids duplication across actions
 async function requireUserId(): Promise<string> {
@@ -14,8 +15,8 @@ async function requireUserId(): Promise<string> {
 }
 
 function revalidateApplicationPages() {
-  revalidatePath("/");
-  revalidatePath("/applications");
+  revalidatePath(ROUTES.DASHBOARD);
+  revalidatePath(ROUTES.APPLICATIONS);
 }
 
 // ─── Create ───────────────────────────────────────────────────────────────────
