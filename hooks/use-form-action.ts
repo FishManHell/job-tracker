@@ -5,7 +5,7 @@ import type { ActionState } from "@/types/auth";
 
 type ServerAction = (prev: ActionState, formData: FormData) => Promise<ActionState>;
 
-export function useFormAction<T extends Record<string, string>>(
+export function useFormAction<T>(
   action: ServerAction,
   buildFormData: (values: T) => FormData,
 ) {
