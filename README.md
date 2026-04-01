@@ -131,8 +131,3 @@ Open [http://localhost:3000](http://localhost:3000) — done.
                                     └──► WITHDRAWN 🚫
 ```
 
----
-
-## 📄 License
-
-MIT © [FishManHell](https://github.com/FishManHell)
