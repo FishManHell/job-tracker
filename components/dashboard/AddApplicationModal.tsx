@@ -7,20 +7,23 @@ import {
 } from "antd";
 import { BankOutlined, LinkOutlined, EnvironmentOutlined, DollarOutlined } from "@ant-design/icons";
 import type { AddApplicationFormValues } from "@/types/application";
+import { Currency } from "@/types/common";
 import { STATUS_OPTIONS } from "@/lib/status-config";
 import { createApplication } from "@/actions/applications";
+import { formatSalary } from "@/lib/format";
 
 const { TextArea } = Input;
-const { Option } = Select;
 
-const CURRENCY_OPTIONS = ["USD", "EUR", "GBP", "UAH", "CAD", "AUD"];
+const CURRENCY_OPTIONS = Object.values(Currency).map((c) => {
+  return { value: c, label: c }
+});
 
-interface Props {
+interface AddApplicationModalProps {
   open:    boolean;
   onClose: () => void;
 }
 
-export default function AddApplicationModal({ open, onClose }: Props) {
+export default function AddApplicationModal({ open, onClose }: AddApplicationModalProps) {
   const [form] = Form.useForm<AddApplicationFormValues>();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -87,16 +90,19 @@ export default function AddApplicationModal({ open, onClose }: Props) {
         <Row gutter={12}>
           <Col span={12}>
             <Form.Item label="Status" name="status">
-              <Select size="large">
-                {STATUS_OPTIONS.map((s) => (
-                  <Option key={s.value} value={s.value}>
+              <Select
+                size="large"
+                options={STATUS_OPTIONS.map((s) => ({ value: s.value, label: s.label }))}
+                optionRender={(option) => {
+                  const s = STATUS_OPTIONS.find((o) => o.value === option.value);
+                  return (
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: s.dotColor }} />
-                      {s.label}
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s?.dotColor }} />
+                      {option.label}
                     </div>
-                  </Option>
-                ))}
-              </Select>
+                  );
+                }}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -122,9 +128,7 @@ export default function AddApplicationModal({ open, onClose }: Props) {
         <Row gutter={12}>
           <Col span={8}>
             <Form.Item name="currency" label="Currency">
-              <Select size="large">
-                {CURRENCY_OPTIONS.map((c) => <Option key={c} value={c}>{c}</Option>)}
-              </Select>
+              <Select size="large" options={CURRENCY_OPTIONS}/>
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -134,7 +138,7 @@ export default function AddApplicationModal({ open, onClose }: Props) {
                 placeholder="80 000"
                 size="large"
                 style={{ width: "100%" }}
-                formatter={(v) => `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                formatter={formatSalary}
               />
             </Form.Item>
           </Col>
@@ -144,7 +148,7 @@ export default function AddApplicationModal({ open, onClose }: Props) {
                 placeholder="120 000"
                 size="large"
                 style={{ width: "100%" }}
-                formatter={(v) => `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                formatter={formatSalary}
               />
             </Form.Item>
           </Col>

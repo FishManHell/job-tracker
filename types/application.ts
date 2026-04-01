@@ -1,4 +1,4 @@
-import type { AntdTagColor, HexColor } from "@/types/common";
+import type { AntdTagColor, HexColor, Currency } from "@/types/common";
 
 export const ApplicationStatus = {
   APPLIED:   "APPLIED",
@@ -32,7 +32,7 @@ export interface AddApplicationFormValues {
   status:      ApplicationStatus;
   location?:   string;
   remote:      boolean;
-  currency:    string;
+  currency:    Currency;
   salaryMin?:  number;
   salaryMax?:  number;
   jobUrl?:     string;
