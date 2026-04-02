@@ -7,7 +7,7 @@ import {
 } from "antd";
 import { BankOutlined, EditOutlined, EnvironmentOutlined, LinkOutlined, DollarOutlined } from "@ant-design/icons";
 import FormAlert from "@/components/common/FormAlert";
-import { STATUS_OPTIONS, STATUS_SELECT_OPTIONS } from "@/lib/status-config";
+import StatusSelect from "@/components/common/StatusSelect";
 import { formatSalary } from "@/lib/format";
 import { createApplication, updateApplication } from "@/actions/applications";
 import type { SerializedApplication } from "@/lib/data/applications";
@@ -17,12 +17,12 @@ import { ADD_DEFAULTS, CURRENCY_OPTIONS, toFormValues } from "./ApplicationModal
 const { TextArea } = Input;
 
 interface ApplicationModalProps {
-  open:         boolean;
-  onClose:      () => void;
+  open: boolean;
+  onClose: () => void;
   application?: SerializedApplication;
 }
 
-export default function ApplicationModal({ open, onClose, application }: ApplicationModalProps) {
+function ApplicationModal({ open, onClose, application }: ApplicationModalProps) {
   const isEdit = !!application;
 
   const [form] = Form.useForm<AddApplicationFormValues>();
@@ -94,19 +94,7 @@ export default function ApplicationModal({ open, onClose, application }: Applica
         <Row gutter={12}>
           <Col span={12}>
             <Form.Item label="Status" name="status">
-              <Select
-                size="large"
-                options={STATUS_SELECT_OPTIONS}
-                optionRender={(option) => {
-                  const s = STATUS_OPTIONS.find((o) => o.value === option.value);
-                  return (
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s?.dotColor }} />
-                      {option.label}
-                    </div>
-                  );
-                }}
-              />
+              <StatusSelect size="large" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -179,3 +167,5 @@ export default function ApplicationModal({ open, onClose, application }: Applica
     </Modal>
   );
 }
+
+export default ApplicationModal;

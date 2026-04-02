@@ -12,7 +12,7 @@ export const STATUS_CONFIG: Record<ApplicationStatus, StatusConfig> = {
 };
 
 // Ready-to-use array for Select options
-export const STATUS_OPTIONS = (
+const STATUS_OPTIONS = (
   Object.entries(STATUS_CONFIG) as [ApplicationStatus, StatusConfig][]
 ).map(([value, config]) => ({ value, ...config }));
 

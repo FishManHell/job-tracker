@@ -1,7 +1,7 @@
 "use client";
 
 import { Select } from "antd";
-import { STATUS_OPTIONS, STATUS_SELECT_OPTIONS } from "@/lib/status-config";
+import { STATUS_CONFIG, STATUS_SELECT_OPTIONS } from "@/lib/status-config";
 import type { ApplicationStatus } from "@/types/application";
 import {CSSProperties} from "react";
 
@@ -14,7 +14,7 @@ interface StatusSelectProps {
   allowClear?:  boolean;
 }
 
-export default function StatusSelect(props: StatusSelectProps) {
+function StatusSelect(props: StatusSelectProps) {
     const { value, onChange, size = "large", style, placeholder = "All statuses", allowClear } = props
     return (
         <Select
@@ -26,7 +26,7 @@ export default function StatusSelect(props: StatusSelectProps) {
             allowClear={allowClear}
             options={STATUS_SELECT_OPTIONS}
             optionRender={(option) => {
-                const s = STATUS_OPTIONS.find((o) => o.value === option.value);
+                const s = STATUS_CONFIG[option.data.value];
                 return (
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s?.dotColor }} />
@@ -38,3 +38,5 @@ export default function StatusSelect(props: StatusSelectProps) {
         />
     );
 }
+
+export default StatusSelect;
