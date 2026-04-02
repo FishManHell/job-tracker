@@ -10,7 +10,7 @@ import GoogleIcon from "@/components/icons/GoogleIcon";
 import type { RegisterValues } from "@/types/auth";
 import { ROUTES } from "@/lib/routes";
 
-export default function RegisterForm() {
+function RegisterForm() {
   const { error, isPending, handleSubmit } = useFormAction<RegisterValues>(
     register,
     (values) => {
@@ -92,3 +92,5 @@ export default function RegisterForm() {
     </>
   );
 }
+
+export default RegisterForm;

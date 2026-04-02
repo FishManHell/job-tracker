@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
   stats: ApplicationStats;
 }
 
-export default function ProfileHeader({ name, email, createdAt, stats }: ProfileHeaderProps) {
+function ProfileHeader({ name, email, createdAt, stats }: ProfileHeaderProps) {
   return (
     <Card styles={{ body: { padding: 0 } }}>
       <div className="h-24 rounded-t-lg" style={{ background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #1a1d2e 100%)" }} />
@@ -41,3 +41,5 @@ export default function ProfileHeader({ name, email, createdAt, stats }: Profile
     </Card>
   );
 }
+
+export default ProfileHeader;

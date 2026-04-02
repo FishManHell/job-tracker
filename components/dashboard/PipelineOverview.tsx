@@ -7,7 +7,7 @@ interface Props {
   stats: ApplicationStats;
 }
 
-export default function PipelineOverview({ stats }: Props) {
+function PipelineOverview({ stats }: Props) {
   const pipeline = [
     { label: "Applied",   count: stats.applied,   color: "#6366f1" },
     { label: "Screening", count: stats.screening, color: "#3b82f6" },
@@ -39,3 +39,5 @@ export default function PipelineOverview({ stats }: Props) {
     </Card>
   );
 }
+
+export default PipelineOverview;

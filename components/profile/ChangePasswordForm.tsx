@@ -7,7 +7,7 @@ import FormAlert from "@/components/common/FormAlert";
 import { changePassword } from "@/actions/profile";
 import type { PasswordChangeFormValues } from "@/types/auth";
 
-export default function ChangePasswordForm() {
+function ChangePasswordForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -69,3 +69,5 @@ export default function ChangePasswordForm() {
     </Card>
   );
 }
+
+export default ChangePasswordForm;

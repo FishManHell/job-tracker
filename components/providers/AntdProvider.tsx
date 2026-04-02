@@ -5,7 +5,7 @@ import { ConfigProvider, theme as antdTheme } from "antd";
 import { useResolvedTheme } from "@/hooks/use-resolved-theme";
 import {ReactNode} from "react";
 
-export default function AntdProvider({ children }: { children: ReactNode }) {
+function AntdProvider({ children }: { children: ReactNode }) {
   const { isDark } = useResolvedTheme();
 
   return (
@@ -25,3 +25,5 @@ export default function AntdProvider({ children }: { children: ReactNode }) {
     </AntdRegistry>
   );
 }
+
+export default AntdProvider;

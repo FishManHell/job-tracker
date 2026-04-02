@@ -17,7 +17,7 @@ interface FormValues {
   confirmPassword: string;
 }
 
-export default function ResetPasswordForm({ token }: Props) {
+function ResetPasswordForm({ token }: Props) {
   const router= useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -70,3 +70,5 @@ export default function ResetPasswordForm({ token }: Props) {
     </>
   );
 }
+
+export default ResetPasswordForm;

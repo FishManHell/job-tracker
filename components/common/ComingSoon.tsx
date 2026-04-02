@@ -2,7 +2,7 @@ interface Props {
   title: string;
 }
 
-export default function ComingSoon({ title }: Props) {
+function ComingSoon({ title }: Props) {
   return (
     <div className="p-8 flex items-center justify-center h-full">
       <div className="text-center text-gray-500">
@@ -13,3 +13,5 @@ export default function ComingSoon({ title }: Props) {
     </div>
   );
 }
+
+export default ComingSoon;

@@ -1,7 +1,7 @@
 import Logo from "@/components/common/Logo";
 import RegisterForm from "@/components/auth/RegisterForm";
 
-export default function RegisterPage() {
+function RegisterPage() {
   return (
     <div className="w-full max-w-md">
       <div className="mb-2 lg:hidden">
@@ -19,3 +19,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+export default RegisterPage;

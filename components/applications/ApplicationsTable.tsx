@@ -21,7 +21,7 @@ interface Props {
   currentSearch?: string;
 }
 
-export default function ApplicationsTable({
+function ApplicationsTable({
   applications,
   total,
   page,
@@ -117,3 +117,5 @@ export default function ApplicationsTable({
     </>
   );
 }
+
+export default ApplicationsTable;

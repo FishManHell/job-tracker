@@ -4,7 +4,7 @@ import { Button, Tooltip } from "antd";
 import { useResolvedTheme } from "@/hooks/use-resolved-theme";
 import { SunIcon, MoonIcon } from "./ThemeToggle.icons";
 
-export default function ThemeToggle() {
+function ThemeToggle() {
   const { isDark, setTheme } = useResolvedTheme();
 
   return (
@@ -21,3 +21,5 @@ export default function ThemeToggle() {
     </Tooltip>
   );
 }
+
+export default ThemeToggle;

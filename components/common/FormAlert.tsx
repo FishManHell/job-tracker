@@ -5,7 +5,9 @@ interface Props {
   type?: "error" | "success" | "warning" | "info";
 }
 
-export default function FormAlert({ message, type = "error" }: Props) {
+function FormAlert({ message, type = "error" }: Props) {
   if (!message) return null;
   return <Alert title={message} type={type} showIcon style={{ marginBottom: 16 }} />;
 }
+
+export default FormAlert;

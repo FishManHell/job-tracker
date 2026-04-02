@@ -10,7 +10,7 @@ interface RecentApplicationsProps {
   applications: SerializedApplication[];
 }
 
-export default function RecentApplications({ applications }: RecentApplicationsProps) {
+function RecentApplications({ applications }: RecentApplicationsProps) {
   return (
     <Card
       title="Recent Applications"
@@ -27,3 +27,5 @@ export default function RecentApplications({ applications }: RecentApplicationsP
     </Card>
   );
 }
+
+export default RecentApplications;

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navItems } from "@/lib/nav-items";
 
-export default function SidebarNav() {
+function SidebarNav() {
   const pathname = usePathname();
 
   return (
@@ -26,3 +26,5 @@ export default function SidebarNav() {
     </nav>
   );
 }
+
+export default SidebarNav;

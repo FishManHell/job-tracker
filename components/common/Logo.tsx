@@ -3,7 +3,7 @@ interface LogoProps {
   size?:    "sm" | "md";
 }
 
-export default function Logo({ variant = "light", size = "md" }: LogoProps) {
+function Logo({ variant = "light", size = "md" }: LogoProps) {
   const badge = size === "md"
     ? "w-9 h-9 rounded-xl text-sm"
     : "w-8 h-8 rounded-lg text-sm";
@@ -25,3 +25,5 @@ export default function Logo({ variant = "light", size = "md" }: LogoProps) {
     </div>
   );
 }
+
+export default Logo;

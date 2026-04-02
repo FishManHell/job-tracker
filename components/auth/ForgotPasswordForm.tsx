@@ -10,7 +10,7 @@ import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
 import { requestPasswordReset } from "@/actions/password-reset";
 import { ROUTES } from "@/lib/routes";
 
-export default function ForgotPasswordForm() {
+function ForgotPasswordForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -59,3 +59,5 @@ export default function ForgotPasswordForm() {
     </div>
   );
 }
+
+export default ForgotPasswordForm;

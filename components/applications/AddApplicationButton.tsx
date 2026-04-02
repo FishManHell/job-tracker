@@ -5,7 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import ApplicationModal from "@/components/applications/ApplicationModal";
 import { useModal } from "@/hooks/use-modal";
 
-export default function AddApplicationButton() {
+function AddApplicationButton() {
   const { open, handleOpen, handleClose } = useModal();
 
   return (
@@ -17,3 +17,5 @@ export default function AddApplicationButton() {
     </>
   );
 }
+
+export default AddApplicationButton;

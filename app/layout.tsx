@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Track your job applications",
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
@@ -26,3 +26,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;

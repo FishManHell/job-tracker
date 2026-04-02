@@ -11,7 +11,7 @@ interface Props {
   email: string;
 }
 
-export default function PersonalInfoForm({ name, email }: Props) {
+function PersonalInfoForm({ name, email }: Props) {
   const [editing, setEditing] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -74,3 +74,5 @@ export default function PersonalInfoForm({ name, email }: Props) {
     </Card>
   );
 }
+
+export default PersonalInfoForm;

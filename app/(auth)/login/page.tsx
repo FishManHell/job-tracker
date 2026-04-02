@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Logo from "@/components/common/Logo";
 import LoginForm from "@/components/auth/LoginForm";
 
-export default function LoginPage() {
+function LoginPage() {
   return (
     <div className="w-full max-w-md">
       <div className="mb-2 lg:hidden">
@@ -22,3 +22,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;

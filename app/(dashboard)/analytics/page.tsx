@@ -1,5 +1,7 @@
 import ComingSoon from "@/components/common/ComingSoon";
 
-export default function AnalyticsPage() {
+function AnalyticsPage() {
   return <ComingSoon title="Analytics" />;
 }
+
+export default AnalyticsPage;

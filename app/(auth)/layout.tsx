@@ -1,6 +1,7 @@
 import Logo from "@/components/common/Logo";
+import {ReactNode} from "react";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-full min-h-screen">
       {/* Left branding panel */}
@@ -63,3 +64,5 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     </div>
   );
 }
+
+export default AuthLayout;

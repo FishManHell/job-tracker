@@ -11,7 +11,7 @@ import GoogleIcon from "@/components/icons/GoogleIcon";
 import type { LoginValues } from "@/types/auth";
 import { ROUTES } from "@/lib/routes";
 
-export default function LoginForm() {
+function LoginForm() {
   const searchParams = useSearchParams();
   const resetSuccess = searchParams.get("reset") === "success";
 
@@ -77,3 +77,5 @@ export default function LoginForm() {
     </>
   );
 }
+
+export default LoginForm;

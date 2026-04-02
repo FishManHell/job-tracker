@@ -5,7 +5,7 @@ interface Props {
   value:  number;
 }
 
-export default function StatCard({ config, value }: Props) {
+function StatCard({ config, value }: Props) {
   return (
     <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
       <p className="text-xl font-bold" style={{ color: config.color }}>{value}</p>
@@ -13,3 +13,5 @@ export default function StatCard({ config, value }: Props) {
     </div>
   );
 }
+
+export default StatCard;

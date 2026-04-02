@@ -14,7 +14,7 @@ interface Props {
   email: string;
 }
 
-export default function Sidebar({ name, email }: Props) {
+function Sidebar({ name, email }: Props) {
   const onSignOut = () => signOut({ redirectTo: ROUTES.LOGIN });
 
   return (
@@ -61,3 +61,5 @@ export default function Sidebar({ name, email }: Props) {
     </aside>
   );
 }
+
+export default Sidebar;

@@ -4,7 +4,7 @@ import { CheckCircleFilled } from "@ant-design/icons";
 import Logo from "@/components/common/Logo";
 import { ROUTES } from "@/lib/routes";
 
-export default function ForgotPasswordSuccess() {
+function ForgotPasswordSuccess() {
   return (
     <div className="w-full max-w-md text-center">
       <div className="mb-2 lg:hidden">
@@ -23,3 +23,5 @@ export default function ForgotPasswordSuccess() {
     </div>
   );
 }
+
+export default ForgotPasswordSuccess;
