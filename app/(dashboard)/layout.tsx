@@ -1,16 +1,15 @@
 import { ReactNode } from "react";
 import { auth } from "@/lib/auth";
-import Sidebar from "@/components/layout/Sidebar";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
-export default async function DashboardLayout({ children }: { children: ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
   const session = await auth();
   const name    = session?.user?.name  ?? "";
   const email   = session?.user?.email ?? "";
 
   return (
-    <div className="flex h-full">
-      <Sidebar name={name} email={email} />
-      <main className="flex-1 overflow-auto">{children}</main>
-    </div>
+    <DashboardLayout name={name} email={email}>
+      {children}
+    </DashboardLayout>
   );
 }

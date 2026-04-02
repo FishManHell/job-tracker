@@ -53,6 +53,22 @@ export async function getApplicationStats(userId: string): Promise<ApplicationSt
   };
 }
 
+// ─── Minimal list for Select dropdowns ───────────────────────────────────────
+
+export type ApplicationOption = {
+  id:          string;
+  companyName: string;
+  position:    string;
+};
+
+export async function getApplicationsList(userId: string): Promise<ApplicationOption[]> {
+  return prisma.application.findMany({
+    where:   { userId },
+    select:  { id: true, companyName: true, position: true },
+    orderBy: { companyName: "asc" },
+  });
+}
+
 // ─── Recent applications for Dashboard ───────────────────────────────────────
 
 export async function getRecentApplications(
