@@ -41,6 +41,7 @@ function InterviewsTable({ interviews, applications }: InterviewsTableProps) {
           dataSource={interviews}
           rowKey="id"
           size="middle"
+          scroll={{ x: 900 }}
           loading={isPending}
           locale={{ emptyText: "No interviews yet." }}
           pagination={{ pageSize: 10, hideOnSinglePage: true }}

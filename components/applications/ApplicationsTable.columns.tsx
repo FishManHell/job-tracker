@@ -17,6 +17,8 @@ export function getColumns(
     col({
       title:     "Company",
       dataIndex: "companyName",
+      fixed:     "left",
+      width:     180,
       render: (name) => (
         <div className="flex items-center gap-3">
           <div
@@ -29,15 +31,17 @@ export function getColumns(
         </div>
       ),
     }),
-    col({ title: "Position", dataIndex: "position" }),
+    col({ title: "Position", dataIndex: "position", width: 160 }),
     col({
       title:     "Date Applied",
       dataIndex: "appliedAt",
+      width:     130,
       render: (iso) => formatDate(iso),
     }),
     col({
       title:     "Status",
       dataIndex: "status",
+      width:     120,
       render: (status) => (
         <Tag color={STATUS_CONFIG[status as ApplicationStatus].tagColor}>
           {STATUS_CONFIG[status as ApplicationStatus].label}
@@ -47,11 +51,13 @@ export function getColumns(
     col({
       title:     "Location",
       dataIndex: "location",
+      width:     130,
       render: (v) => v ?? "—",
     }),
     col({
       title:     "Next Step",
       dataIndex: "nextStep",
+      width:     130,
       render: (v) => v ?? "—",
     }),
     {

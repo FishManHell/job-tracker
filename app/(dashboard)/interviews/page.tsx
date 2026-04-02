@@ -17,10 +17,10 @@ async function InterviewsPage() {
   ]);
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="flex items-center justify-between mb-6 xl:mb-8">
         <div>
-          <h1 className="text-2xl font-bold">Interviews</h1>
+          <h1 className="text-lg sm:text-xl xl:text-2xl font-bold">Interviews</h1>
           <p className="text-gray-500 text-sm mt-1">
             {stats.total} total interview{stats.total !== 1 ? "s" : ""}
           </p>
@@ -28,7 +28,7 @@ async function InterviewsPage() {
         <AddInterviewButton applications={applications} />
       </div>
 
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         {INTERVIEW_STAT_CARDS.map((c) => (
           <StatsCard
             key={c.label}

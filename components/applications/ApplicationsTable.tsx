@@ -103,6 +103,7 @@ function ApplicationsTable({
         rowKey="id"
         loading={isPending}
         size="middle"
+        scroll={{ x: 800 }}
         locale={{ emptyText: "No applications found." }}
         pagination={{
           current:  page,

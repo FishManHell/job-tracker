@@ -16,6 +16,8 @@ export function getColumns(
   col({
     title:     "Company",
     dataIndex: "companyName",
+    fixed:     "left",
+    width:     180,
     render: (name) => (
       <div className="flex items-center gap-3">
         <div
@@ -31,10 +33,12 @@ export function getColumns(
   col({
     title:     "Position",
     dataIndex: "position",
+    width:     160,
   }),
   col({
     title:     "Type",
     dataIndex: "type",
+    width:     120,
     render: (type) => (
       <Tag color={INTERVIEW_TYPE_CONFIG[type].tagColor}>
         {INTERVIEW_TYPE_CONFIG[type].label}
@@ -44,6 +48,7 @@ export function getColumns(
   col({
     title:     "Scheduled",
     dataIndex: "scheduledAt",
+    width:     140,
     render: (iso) => {
       const d = new Date(iso);
       return (
@@ -59,16 +64,19 @@ export function getColumns(
   col({
     title:     "Duration",
     dataIndex: "durationMins",
+    width:     110,
     render: (mins) => mins ? `${mins} min` : "—",
   }),
   col({
     title:     "Location",
     dataIndex: "location",
+    width:     130,
     render: (v) => v ?? "—",
   }),
   col({
     title:     "Result",
     dataIndex: "result",
+    width:     150,
     render: (result) => (
       <div className="flex items-center gap-2">
         <div
