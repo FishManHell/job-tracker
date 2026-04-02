@@ -5,16 +5,19 @@ import type { SerializedApplication } from "@/lib/data/applications";
 import type { ApplicationStatus } from "@/types/application";
 import { STATUS_CONFIG } from "@/lib/status-config";
 import { getCompanyColor, formatDate } from "@/lib/format";
+import { createCol } from "@/lib/table";
+
+const col = createCol<SerializedApplication>();
 
 export function getColumns(
   onEdit:   (record: SerializedApplication) => void,
   onDelete: (id: string) => void,
 ): ColumnsType<SerializedApplication> {
   return [
-    {
-      title: "Company",
+    col({
+      title:     "Company",
       dataIndex: "companyName",
-      render: (name: string) => (
+      render: (name) => (
         <div className="flex items-center gap-3">
           <div
             className="w-8 h-8 rounded-lg shrink-0 flex items-center justify-center text-white text-xs font-bold"
@@ -25,34 +28,36 @@ export function getColumns(
           <span className="font-medium">{name}</span>
         </div>
       ),
-    },
-    { title: "Position", dataIndex: "position" },
-    {
-      title: "Date Applied",
+    }),
+    col({ title: "Position", dataIndex: "position" }),
+    col({
+      title:     "Date Applied",
       dataIndex: "appliedAt",
-      render: (iso: string) => formatDate(iso),
-    },
-    {
-      title: "Status",
+      render: (iso) => formatDate(iso),
+    }),
+    col({
+      title:     "Status",
       dataIndex: "status",
-      render: (status: ApplicationStatus) => (
-        <Tag color={STATUS_CONFIG[status].tagColor}>{STATUS_CONFIG[status].label}</Tag>
+      render: (status) => (
+        <Tag color={STATUS_CONFIG[status as ApplicationStatus].tagColor}>
+          {STATUS_CONFIG[status as ApplicationStatus].label}
+        </Tag>
       ),
-    },
-    {
-      title: "Location",
+    }),
+    col({
+      title:     "Location",
       dataIndex: "location",
-      render: (v: string | null) => v ?? "—",
-    },
-    {
-      title: "Next Step",
+      render: (v) => v ?? "—",
+    }),
+    col({
+      title:     "Next Step",
       dataIndex: "nextStep",
-      render: (v: string | null) => v ?? "—",
-    },
+      render: (v) => v ?? "—",
+    }),
     {
-      title: "",
-      key: "actions",
-      width: 80,
+      title:  "",
+      key:    "actions",
+      width:  80,
       render: (_, record) => (
         <Space size={4}>
           <Button

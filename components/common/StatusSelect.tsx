@@ -3,7 +3,8 @@
 import { Select } from "antd";
 import { STATUS_CONFIG, STATUS_SELECT_OPTIONS } from "@/lib/status-config";
 import type { ApplicationStatus } from "@/types/application";
-import {CSSProperties} from "react";
+import type { CSSProperties } from "react";
+import { renderDotOption } from "@/components/common/select-helpers";
 
 interface StatusSelectProps {
   value?:    ApplicationStatus | null;
@@ -27,13 +28,7 @@ function StatusSelect(props: StatusSelectProps) {
             options={STATUS_SELECT_OPTIONS}
             optionRender={(option) => {
                 const s = STATUS_CONFIG[option.data.value];
-                return (
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s?.dotColor }} />
-                        {option.label}
-                    </div>
-                );
-
+                return renderDotOption(s.dotColor, option.label);
             }}
         />
     );

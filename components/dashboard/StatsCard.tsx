@@ -1,12 +1,11 @@
 "use client";
 
 import { Card, Statistic } from "antd";
-import type { StatCardLabel } from "@/lib/dashboard-stats";
 import type { HexColor } from "@/types/common";
 
 interface StatsCardProps {
   value:       number;
-  label:       StatCardLabel;
+  label:       string;
   sub:         string;
   borderColor: HexColor;
   subColor:    HexColor;

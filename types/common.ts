@@ -12,6 +12,8 @@ export const AntdTagColor = {
   BLUE:    "blue",
   PURPLE:  "purple",
   ORANGE:  "orange",
+  GOLD:    "gold",
+  CYAN:    "cyan",
   GREEN:   "green",
   RED:     "red",
   DEFAULT: "default",

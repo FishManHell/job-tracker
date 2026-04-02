@@ -30,6 +30,7 @@ function ApplicationModal({ open, onClose, application }: ApplicationModalProps)
   const [isPending, startTransition] = useTransition();
 
   const handleClose = () => {
+    form.resetFields();
     setError(null);
     onClose();
   };
