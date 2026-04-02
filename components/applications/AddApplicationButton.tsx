@@ -2,7 +2,7 @@
 
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import AddApplicationModal from "@/components/dashboard/AddApplicationModal";
+import ApplicationModal from "@/components/applications/ApplicationModal";
 import { useModal } from "@/hooks/use-modal";
 
 export default function AddApplicationButton() {
@@ -13,7 +13,7 @@ export default function AddApplicationButton() {
       <Button type="primary" icon={<PlusOutlined />} size="large" onClick={handleOpen}>
         Add Application
       </Button>
-      <AddApplicationModal open={open} onClose={handleClose} />
+      <ApplicationModal open={open} onClose={handleClose} />
     </>
   );
 }

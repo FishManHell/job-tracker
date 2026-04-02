@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useTransition } from "react";
 import { Table, Input, Button, Flex } from "antd";
@@ -8,6 +9,7 @@ import type { SerializedApplication } from "@/lib/data/applications";
 import type { ApplicationStatus } from "@/types/application";
 import { deleteApplication } from "@/actions/applications";
 import { getColumns } from "./ApplicationsTable.columns";
+import ApplicationModal from "./ApplicationModal";
 import StatusSelect from "@/components/common/StatusSelect";
 
 interface Props {
@@ -30,6 +32,7 @@ export default function ApplicationsTable({
   const router   = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
+  const [editingApp, setEditingApp]  = useState<SerializedApplication | null>(null);
 
   // Update URL when filters or pagination change
   function updateParams(updates: Record<string, string | undefined>) {
@@ -59,9 +62,16 @@ export default function ApplicationsTable({
     updateParams({ status: undefined, search: undefined });
   }
 
-  const columns = getColumns(handleDelete);
+  const columns = getColumns(setEditingApp, handleDelete);
 
   return (
+    <>
+    <ApplicationModal
+      key={editingApp?.id}
+      open={!!editingApp}
+      application={editingApp ?? undefined}
+      onClose={() => setEditingApp(null)}
+    />
     <div className="flex flex-col gap-4">
       {/* Filters */}
       <Flex gap={12} align="center">
@@ -104,5 +114,6 @@ export default function ApplicationsTable({
         }}
       />
     </div>
+    </>
   );
 }

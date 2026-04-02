@@ -5,32 +5,31 @@ import {
   Modal, Form, Input, Select, Switch,
   InputNumber, Button, Divider, Row, Col,
 } from "antd";
+import { BankOutlined, EditOutlined, EnvironmentOutlined, LinkOutlined, DollarOutlined } from "@ant-design/icons";
 import FormAlert from "@/components/common/FormAlert";
-import { BankOutlined, LinkOutlined, EnvironmentOutlined, DollarOutlined } from "@ant-design/icons";
-import type { AddApplicationFormValues } from "@/types/application";
-import { Currency } from "@/types/common";
 import { STATUS_OPTIONS } from "@/lib/status-config";
-import { createApplication } from "@/actions/applications";
 import { formatSalary } from "@/lib/format";
+import { createApplication, updateApplication } from "@/actions/applications";
+import type { SerializedApplication } from "@/lib/data/applications";
+import type { AddApplicationFormValues } from "@/types/application";
+import { ADD_DEFAULTS, CURRENCY_OPTIONS, toFormValues } from "./ApplicationModal.utils";
 
 const { TextArea } = Input;
 
-const CURRENCY_OPTIONS = Object.values(Currency).map((c) => {
-  return { value: c, label: c }
-});
-
-interface AddApplicationModalProps {
-  open:    boolean;
-  onClose: () => void;
+interface ApplicationModalProps {
+  open:         boolean;
+  onClose:      () => void;
+  application?: SerializedApplication;
 }
 
-export default function AddApplicationModal({ open, onClose }: AddApplicationModalProps) {
+export default function ApplicationModal({ open, onClose, application }: ApplicationModalProps) {
+  const isEdit = !!application;
+
   const [form] = Form.useForm<AddApplicationFormValues>();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handleClose = () => {
-    form.resetFields();
     setError(null);
     onClose();
   };
@@ -38,12 +37,12 @@ export default function AddApplicationModal({ open, onClose }: AddApplicationMod
   const onFinish = (values: AddApplicationFormValues) => {
     setError(null);
     startTransition(async () => {
-      const result = await createApplication(values);
-      if (result?.error) {
-        setError(result.error);
-      } else {
-        handleClose();
-      }
+      const result = isEdit
+        ? await updateApplication(application.id, values)
+        : await createApplication(values);
+
+      if (result?.error) setError(result.error);
+      else handleClose();
     });
   };
 
@@ -53,10 +52,15 @@ export default function AddApplicationModal({ open, onClose }: AddApplicationMod
       onCancel={handleClose}
       title={
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-indigo-500 rounded-lg flex items-center justify-center">
-            <BankOutlined style={{ color: "#fff", fontSize: 14 }} />
+          <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${isEdit ? "bg-amber-500" : "bg-indigo-500"}`}>
+            {isEdit
+              ? <EditOutlined style={{ color: "#fff", fontSize: 14 }} />
+              : <BankOutlined  style={{ color: "#fff", fontSize: 14 }} />
+            }
           </div>
-          <span className="text-base font-semibold">Add Application</span>
+          <span className="text-base font-semibold">
+            {isEdit ? "Edit Application" : "Add Application"}
+          </span>
         </div>
       }
       footer={null}
@@ -71,10 +75,9 @@ export default function AddApplicationModal({ open, onClose }: AddApplicationMod
         layout="vertical"
         requiredMark={false}
         onFinish={onFinish}
-        initialValues={{ status: "APPLIED", currency: "USD", remote: false }}
+        initialValues={isEdit ? toFormValues(application) : ADD_DEFAULTS}
         style={{ marginTop: 8 }}
       >
-
         <Row gutter={12}>
           <Col span={12}>
             <Form.Item label="Company" name="companyName" rules={[{ required: true, message: "Enter company name" }]}>
@@ -126,10 +129,11 @@ export default function AddApplicationModal({ open, onClose }: AddApplicationMod
         <Divider style={{ margin: "8px 0 12px" }}>
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Salary Range (optional)</span>
         </Divider>
+
         <Row gutter={12}>
           <Col span={8}>
             <Form.Item name="currency" label="Currency">
-              <Select size="large" options={CURRENCY_OPTIONS}/>
+              <Select size="large" options={CURRENCY_OPTIONS} />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -168,7 +172,7 @@ export default function AddApplicationModal({ open, onClose }: AddApplicationMod
         <div className="flex gap-3 justify-end pt-2">
           <Button size="large" onClick={handleClose}>Cancel</Button>
           <Button type="primary" size="large" htmlType="submit" loading={isPending} style={{ minWidth: 140 }}>
-            Add Application
+            {isEdit ? "Save Changes" : "Add Application"}
           </Button>
         </div>
       </Form>

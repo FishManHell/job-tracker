@@ -1,12 +1,15 @@
-import { Tag, Button, Popconfirm } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { Tag, Button, Popconfirm, Space } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import type { SerializedApplication } from "@/lib/data/applications";
 import type { ApplicationStatus } from "@/types/application";
 import { STATUS_CONFIG } from "@/lib/status-config";
 import { getCompanyColor, formatDate } from "@/lib/format";
 
-export function getColumns(onDelete: (id: string) => void): ColumnsType<SerializedApplication> {
+export function getColumns(
+  onEdit:   (record: SerializedApplication) => void,
+  onDelete: (id: string) => void,
+): ColumnsType<SerializedApplication> {
   return [
     {
       title: "Company",
@@ -49,18 +52,26 @@ export function getColumns(onDelete: (id: string) => void): ColumnsType<Serializ
     {
       title: "",
       key: "actions",
-      width: 48,
+      width: 80,
       render: (_, record) => (
-        <Popconfirm
-          title="Delete application?"
-          description="This cannot be undone."
-          onConfirm={() => onDelete(record.id)}
-          okText="Delete"
-          okButtonProps={{ danger: true }}
-          cancelText="Cancel"
-        >
-          <Button type="text" danger icon={<DeleteOutlined />} size="small" />
-        </Popconfirm>
+        <Space size={4}>
+          <Button
+            type="text"
+            icon={<EditOutlined />}
+            size="small"
+            onClick={() => onEdit(record)}
+          />
+          <Popconfirm
+            title="Delete application?"
+            description="This cannot be undone."
+            onConfirm={() => onDelete(record.id)}
+            okText="Delete"
+            okButtonProps={{ danger: true }}
+            cancelText="Cancel"
+          >
+            <Button type="text" danger icon={<DeleteOutlined />} size="small" />
+          </Popconfirm>
+        </Space>
       ),
     },
   ];

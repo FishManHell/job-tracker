@@ -87,7 +87,7 @@ model Application {
   status      ApplicationStatus @default(APPLIED)
   salaryMin   Int?
   salaryMax   Int?
-  currency    String?           @default("USD")
+  currency    Currency          @default(USD)
   location    String?
   remote      Boolean           @default(false)
   jobUrl      String?
@@ -144,4 +144,13 @@ enum InterviewResult {
   PENDING
   PASSED
   FAILED
+}
+
+enum Currency {
+  USD
+  EUR
+  GBP
+  UAH
+  CAD
+  AUD
 }

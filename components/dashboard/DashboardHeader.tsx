@@ -2,7 +2,7 @@
 
 import { Button, Input } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
-import AddApplicationModal from "./AddApplicationModal";
+import ApplicationModal from "@/components/applications/ApplicationModal";
 import { useModal } from "@/hooks/use-modal";
 
 export default function DashboardHeader() {
@@ -24,7 +24,7 @@ export default function DashboardHeader() {
         </div>
       </div>
 
-      <AddApplicationModal open={open} onClose={handleClose} />
+      <ApplicationModal open={open} onClose={handleClose} />
     </>
   );
 }
