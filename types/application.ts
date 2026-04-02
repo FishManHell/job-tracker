@@ -26,6 +26,28 @@ export interface StatusConfig {
   dotColor: HexColor;
 }
 
+export const ProfileStat = {
+  TOTAL:     "total",
+  INTERVIEW: "interview",
+  OFFER:     "offer",
+  REJECTED:  "rejected",
+} as const;
+export type ProfileStat = typeof ProfileStat[keyof typeof ProfileStat];
+
+export const ProfileStatLabel = {
+  TOTAL:     "Applications",
+  INTERVIEW: "Interviews",
+  OFFER:     "Offers",
+  REJECTED:  "Rejected",
+} as const;
+export type ProfileStatLabel = typeof ProfileStatLabel[keyof typeof ProfileStatLabel];
+
+export interface ProfileStatConfig {
+  key:   ProfileStat;
+  label: ProfileStatLabel;
+  color: HexColor;
+}
+
 export interface AddApplicationFormValues {
   companyName: string;
   position:    string;
