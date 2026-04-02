@@ -28,8 +28,10 @@ JobTracker is a full-stack web app that helps you organize your job hunt from th
 | Feature | Description |
 |---------|-------------|
 | 📊 **Dashboard** | At-a-glance stats: total applied, in progress, interviews, offers |
-| 📋 **Applications** | Add, search, filter by status, paginate, delete |
+| 📋 **Applications** | Add, edit, search, filter by status, paginate, delete |
+| 👤 **Profile** | Update name, change password, view personal stats |
 | 🔐 **Authentication** | Email/password + Google OAuth — JWT sessions |
+| 🔑 **Forgot password** | Token-based reset flow via email |
 | 🌗 **Dark / Light mode** | Persisted theme switcher |
 | 🔒 **Protected routes** | All dashboard pages require a valid session |
 
@@ -41,6 +43,7 @@ JobTracker is a full-stack web app that helps you organize your job hunt from th
 Frontend    Next.js 16 (App Router) · TypeScript · Tailwind CSS · Ant Design
 Backend     Next.js Server Actions · NextAuth v5 (JWT)
 Database    Supabase PostgreSQL · Prisma ORM
+Email       Resend
 Deploy      Vercel
 ```
 
@@ -52,6 +55,7 @@ Deploy      Vercel
 
 - **Node.js** 20+
 - A free [Supabase](https://supabase.com) project
+- A free [Resend](https://resend.com) account (for password reset emails)
 
 ### 1. Clone & install
 
@@ -79,6 +83,10 @@ NEXTAUTH_URL="http://localhost:3000"
 # Google OAuth (optional)
 GOOGLE_CLIENT_ID=""
 GOOGLE_CLIENT_SECRET=""
+
+# Email (Resend)
+RESEND_API_KEY=""
+APP_URL="http://localhost:3000"
 ```
 
 ### 3. Run
@@ -95,7 +103,7 @@ Open [http://localhost:3000](http://localhost:3000) — done.
 
 ```
 ├── app/
-│   ├── (auth)/              # /login, /register
+│   ├── (auth)/              # /login, /register, /forgot-password, /reset-password
 │   └── (dashboard)/         # protected pages
 │       ├── page.tsx          # Dashboard
 │       ├── applications/
@@ -104,16 +112,19 @@ Open [http://localhost:3000](http://localhost:3000) — done.
 │       ├── analytics/
 │       ├── settings/
 │       └── profile/
-├── actions/                  # Server Actions — auth & CRUD
+├── actions/                  # Server Actions — auth, applications, profile, password reset
 ├── components/
-│   ├── applications/         # Table, filters, add button
-│   ├── auth/                 # Login & register forms
+│   ├── applications/         # Table, filters, add/edit modal
+│   ├── auth/                 # Login, register, forgot/reset password forms
+│   ├── common/               # Shared UI: StatusSelect, FormAlert
 │   ├── dashboard/            # Stats, pipeline, recent apps
 │   ├── layout/               # Sidebar navigation
+│   ├── profile/              # ProfileHeader, StatCard, PersonalInfoForm, ChangePasswordForm
 │   └── providers/            # Antd & theme providers
 ├── lib/
 │   ├── auth.ts               # NextAuth configuration
 │   ├── prisma.ts             # Prisma client
+│   ├── status-config.ts      # Application status config & select options
 │   └── data/                 # DB read queries
 ├── prisma/
 │   └── schema.prisma         # DB schema
@@ -130,4 +141,3 @@ Open [http://localhost:3000](http://localhost:3000) — done.
                                     ├──► REJECTED ❌
                                     └──► WITHDRAWN 🚫
 ```
-
