@@ -22,6 +22,7 @@ function RecentApplications({ applications }: RecentApplicationsProps) {
         rowKey="id"
         pagination={false}
         size="middle"
+        scroll={{ x: 720 }}
         locale={{ emptyText: "No applications yet. Add your first one!" }}
       />
     </Card>

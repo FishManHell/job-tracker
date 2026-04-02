@@ -4,12 +4,17 @@ import type { SerializedApplication } from "@/lib/data/applications";
 import type { ApplicationStatus } from "@/types/application";
 import { STATUS_CONFIG } from "@/lib/status-config";
 import { getCompanyColor, formatDate } from "@/lib/format";
+import { createCol } from "@/lib/table";
+
+const col = createCol<SerializedApplication>();
 
 export const columns: ColumnsType<SerializedApplication> = [
-  {
-    title: "Company",
+  col({
+    title:     "Company",
     dataIndex: "companyName",
-    render: (name: string) => (
+    fixed:     "left",
+    width:     180,
+    render: (name) => (
       <div className="flex items-center gap-3">
         <div
           className="w-8 h-8 rounded-lg shrink-0 flex items-center justify-center text-white text-xs font-bold"
@@ -20,23 +25,28 @@ export const columns: ColumnsType<SerializedApplication> = [
         <span className="font-medium">{name}</span>
       </div>
     ),
-  },
-  { title: "Position",     dataIndex: "position" },
-  {
-    title: "Date Applied",
+  }),
+  col({ title: "Position",     dataIndex: "position", width: 160 }),
+  col({
+    title:     "Date Applied",
     dataIndex: "appliedAt",
-    render: (iso: string) => formatDate(iso),
-  },
-  {
-    title: "Status",
+    width:     130,
+    render: (iso) => formatDate(iso),
+  }),
+  col({
+    title:     "Status",
     dataIndex: "status",
-    render: (status: ApplicationStatus) => (
-      <Tag color={STATUS_CONFIG[status].tagColor}>{STATUS_CONFIG[status].label}</Tag>
+    width:     120,
+    render: (status) => (
+      <Tag color={STATUS_CONFIG[status as ApplicationStatus].tagColor}>
+        {STATUS_CONFIG[status as ApplicationStatus].label}
+      </Tag>
     ),
-  },
-  {
-    title: "Next Step",
+  }),
+  col({
+    title:     "Next Step",
     dataIndex: "nextStep",
-    render: (v: string | null) => v ?? "—",
-  },
+    width:     130,
+    render: (v) => v ?? "—",
+  }),
 ];
