@@ -2,12 +2,16 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
 
-const publicRoutes = ["/login", "/register"];
+const publicRoutes = ["/login", "/register", "/forgot-password"];
+
+function isPublicPath(pathname: string) {
+  return publicRoutes.includes(pathname) || pathname.startsWith("/reset-password/");
+}
 
 export async function proxy(request: NextRequest) {
   const session = await auth();
   const isLoggedIn = !!session;
-  const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname);
+  const isPublicRoute = isPublicPath(request.nextUrl.pathname);
 
   if (!isLoggedIn && !isPublicRoute) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
