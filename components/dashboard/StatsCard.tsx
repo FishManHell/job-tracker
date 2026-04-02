@@ -1,16 +1,18 @@
 "use client";
 
 import { Card, Statistic } from "antd";
+import type { StatCardLabel } from "@/lib/dashboard-stats";
+import type { HexColor } from "@/types/common";
 
 interface StatsCardProps {
-  value: number;
-  label: string;
-  sub: string;
-  borderColor: string;
-  subColor: string;
+  value:       number;
+  label:       StatCardLabel;
+  sub:         string;
+  borderColor: HexColor;
+  subColor:    HexColor;
 }
 
-export default function StatsCard({ value, label, sub, borderColor, subColor }: StatsCardProps) {
+function StatsCard({ value, label, sub, borderColor, subColor }: StatsCardProps) {
   return (
     <Card
       style={{ borderLeft: `4px solid ${borderColor}` }}
@@ -21,3 +23,5 @@ export default function StatsCard({ value, label, sub, borderColor, subColor }: 
     </Card>
   );
 }
+
+export default StatsCard;
