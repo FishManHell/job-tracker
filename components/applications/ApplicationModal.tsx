@@ -7,7 +7,7 @@ import {
 } from "antd";
 import { BankOutlined, EditOutlined, EnvironmentOutlined, LinkOutlined, DollarOutlined } from "@ant-design/icons";
 import FormAlert from "@/components/common/FormAlert";
-import { STATUS_OPTIONS } from "@/lib/status-config";
+import { STATUS_OPTIONS, STATUS_SELECT_OPTIONS } from "@/lib/status-config";
 import { formatSalary } from "@/lib/format";
 import { createApplication, updateApplication } from "@/actions/applications";
 import type { SerializedApplication } from "@/lib/data/applications";
@@ -96,7 +96,7 @@ export default function ApplicationModal({ open, onClose, application }: Applica
             <Form.Item label="Status" name="status">
               <Select
                 size="large"
-                options={STATUS_OPTIONS.map((s) => ({ value: s.value, label: s.label }))}
+                options={STATUS_SELECT_OPTIONS}
                 optionRender={(option) => {
                   const s = STATUS_OPTIONS.find((o) => o.value === option.value);
                   return (

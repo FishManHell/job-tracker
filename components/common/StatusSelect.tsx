@@ -1,7 +1,7 @@
 "use client";
 
 import { Select } from "antd";
-import { STATUS_OPTIONS } from "@/lib/status-config";
+import { STATUS_OPTIONS, STATUS_SELECT_OPTIONS } from "@/lib/status-config";
 import type { ApplicationStatus } from "@/types/application";
 import {CSSProperties} from "react";
 
@@ -24,7 +24,7 @@ export default function StatusSelect(props: StatusSelectProps) {
             style={style}
             placeholder={placeholder}
             allowClear={allowClear}
-            options={STATUS_OPTIONS.map((s) => ({ value: s.value, label: s.label }))}
+            options={STATUS_SELECT_OPTIONS}
             optionRender={(option) => {
                 const s = STATUS_OPTIONS.find((o) => o.value === option.value);
                 return (

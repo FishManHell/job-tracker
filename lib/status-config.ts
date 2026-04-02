@@ -15,3 +15,6 @@ export const STATUS_CONFIG: Record<ApplicationStatus, StatusConfig> = {
 export const STATUS_OPTIONS = (
   Object.entries(STATUS_CONFIG) as [ApplicationStatus, StatusConfig][]
 ).map(([value, config]) => ({ value, ...config }));
+
+// Ready-to-use array for Select option labels (value + label only)
+export const STATUS_SELECT_OPTIONS = STATUS_OPTIONS.map(({ value, label }) => ({ value, label }));
