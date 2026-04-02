@@ -6,6 +6,8 @@ export const ROUTES = {
   ANALYTICS:    "/analytics",
   SETTINGS:     "/settings",
   PROFILE:      "/profile",
-  LOGIN:        "/login",
-  REGISTER:     "/register",
+  LOGIN:          "/login",
+  REGISTER:       "/register",
+  FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD:  "/reset-password",
 } as const;

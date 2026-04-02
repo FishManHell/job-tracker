@@ -1,9 +1,10 @@
 import Sidebar from "@/components/layout/Sidebar";
+import {ReactNode} from "react";
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div className="flex h-full">

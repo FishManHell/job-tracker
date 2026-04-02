@@ -6,11 +6,15 @@ import FormAlert from "@/components/common/FormAlert";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { login, loginWithGoogle } from "@/actions/auth";
 import { useFormAction } from "@/hooks/use-form-action";
+import { useSearchParams } from "next/navigation";
 import GoogleIcon from "@/components/icons/GoogleIcon";
 import type { LoginValues } from "@/types/auth";
 import { ROUTES } from "@/lib/routes";
 
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const resetSuccess = searchParams.get("reset") === "success";
+
   const { error, isPending, handleSubmit } = useFormAction<LoginValues>(
     login,
     (values) => {
@@ -38,6 +42,7 @@ export default function LoginForm() {
 
       <Divider plain style={{ color: "#9ca3af", fontSize: 12 }}>or sign in with email</Divider>
 
+      <FormAlert message={resetSuccess ? "Password updated. Sign in with your new password." : null} type="success" />
       <FormAlert message={error} />
 
       <Form layout="vertical" requiredMark={false} onFinish={handleSubmit}>
