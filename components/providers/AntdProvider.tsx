@@ -1,7 +1,7 @@
 "use client";
 
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { ConfigProvider, theme as antdTheme } from "antd";
+import { App, ConfigProvider, theme as antdTheme } from "antd";
 import { useResolvedTheme } from "@/hooks/use-resolved-theme";
 import {ReactNode} from "react";
 
@@ -20,7 +20,9 @@ function AntdProvider({ children }: { children: ReactNode }) {
           },
         }}
       >
-        {children}
+        <App>
+          {children}
+        </App>
       </ConfigProvider>
     </AntdRegistry>
   );

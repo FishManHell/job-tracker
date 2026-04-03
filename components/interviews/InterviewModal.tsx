@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { Modal, Form, Input, Select, InputNumber, Button, Row, Col, DatePicker } from "antd";
 import { CalendarOutlined, EditOutlined } from "@ant-design/icons";
 import FormAlert from "@/components/common/FormAlert";
+import ModalTitle from "@/components/common/ModalTitle";
 import { INTERVIEW_RESULT_CONFIG } from "@/lib/interview-config";
 import { renderDotOption } from "@/components/common/select-helpers";
 import { createInterview, updateInterview } from "@/actions/interviews";
@@ -62,17 +63,12 @@ function InterviewModal({ open, onClose, applications, interview }: InterviewMod
       open={open}
       onCancel={handleClose}
       title={
-        <div className="flex items-center gap-2">
-          <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${isEdit ? "bg-amber-500" : "bg-indigo-500"}`}>
-            {isEdit
-              ? <EditOutlined  style={{ color: "#fff", fontSize: 14 }} />
-              : <CalendarOutlined style={{ color: "#fff", fontSize: 14 }} />
-            }
-          </div>
-          <span className="text-base font-semibold">
-            {isEdit ? "Edit Interview" : "Add Interview"}
-          </span>
-        </div>
+        <ModalTitle
+          isEdit={isEdit}
+          icon={isEdit ? <EditOutlined /> : <CalendarOutlined />}
+          addLabel="Add Interview"
+          editLabel="Edit Interview"
+        />
       }
       footer={null}
       width="min(560px, calc(100vw - 32px))"
