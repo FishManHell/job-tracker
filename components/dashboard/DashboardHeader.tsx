@@ -5,12 +5,14 @@ import { PlusOutlined } from "@ant-design/icons";
 import ApplicationModal from "@/components/applications/ApplicationModal";
 import { useModal } from "@/hooks/use-modal";
 import { getGreeting } from "./DashboardHeader.utils";
+import type { CompanyOption } from "@/lib/data/companies";
 
 interface DashboardHeaderProps {
-  name: string;
+  name:      string;
+  companies: CompanyOption[];
 }
 
-function DashboardHeader({ name }: DashboardHeaderProps) {
+function DashboardHeader({ name, companies }: DashboardHeaderProps) {
   const { open, handleOpen, handleClose } = useModal();
 
   return (
@@ -22,7 +24,7 @@ function DashboardHeader({ name }: DashboardHeaderProps) {
         </Button>
       </div>
 
-      <ApplicationModal open={open} onClose={handleClose} />
+      <ApplicationModal open={open} onClose={handleClose} companies={companies} />
     </>
   );
 }

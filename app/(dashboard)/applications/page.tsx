@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { getApplications } from "@/lib/data/applications";
+import { getCompaniesList } from "@/lib/data/companies";
 import { ApplicationStatus } from "@/types/application";
 import ApplicationsTable from "@/components/applications/ApplicationsTable";
 import AddApplicationButton from "@/components/applications/AddApplicationButton";
@@ -20,11 +21,14 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
     ? (params.status as typeof ApplicationStatus[keyof typeof ApplicationStatus])
     : undefined;
 
-  const { items, total, page, limit } = await getApplications(userId, {
-    status,
-    search: params.search,
-    page:   params.page ? Number(params.page) : 1,
-  });
+  const [{ items, total, page, limit }, companies] = await Promise.all([
+    getApplications(userId, {
+      status,
+      search: params.search,
+      page:   params.page ? Number(params.page) : 1,
+    }),
+    getCompaniesList(userId),
+  ]);
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
@@ -35,11 +39,12 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
             {total} total application{total !== 1 ? "s" : ""}
           </p>
         </div>
-        <AddApplicationButton />
+        <AddApplicationButton companies={companies} />
       </div>
 
       <ApplicationsTable
         applications={items}
+        companies={companies}
         total={total}
         page={page}
         limit={limit}

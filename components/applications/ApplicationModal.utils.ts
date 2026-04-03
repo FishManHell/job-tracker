@@ -1,5 +1,5 @@
 import type { SerializedApplication } from "@/lib/data/applications";
-import {AddApplicationFormValues, ApplicationStatus} from "@/types/application";
+import { AddApplicationFormValues, ApplicationStatus } from "@/types/application";
 import { Currency } from "@/types/common";
 
 export const ADD_DEFAULTS: Partial<AddApplicationFormValues> = {

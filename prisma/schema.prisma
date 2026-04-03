@@ -83,12 +83,14 @@ model Company {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([userId, name])
 }
 
 model Application {
   id          String            @id @default(cuid())
   userId      String
-  companyId   String?
+  companyId   String
   companyName String
   position    String
   status      ApplicationStatus @default(APPLIED)
@@ -103,7 +105,7 @@ model Application {
   nextStep    String?
 
   user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company    Company?    @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  company    Company     @relation(fields: [companyId], references: [id], onDelete: Restrict)
   interviews Interview[]
 
   createdAt DateTime @default(now())

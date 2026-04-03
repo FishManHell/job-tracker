@@ -3,30 +3,37 @@
 import { useState, useTransition } from "react";
 import {
   Modal, Form, Input, Select, Switch,
-  InputNumber, Button, Divider, Row, Col,
+  InputNumber, Button, Divider, Row, Col, AutoComplete,
 } from "antd";
-import { BankOutlined, EditOutlined, EnvironmentOutlined, LinkOutlined, DollarOutlined } from "@ant-design/icons";
+import {
+  BankOutlined, EditOutlined, EnvironmentOutlined,
+  LinkOutlined, DollarOutlined,
+} from "@ant-design/icons";
 import FormAlert from "@/components/common/FormAlert";
+import ModalTitle from "@/components/common/ModalTitle";
 import StatusSelect from "@/components/common/StatusSelect";
 import { formatSalary } from "@/lib/format";
 import { createApplication, updateApplication } from "@/actions/applications";
 import type { SerializedApplication } from "@/lib/data/applications";
+import type { CompanyOption } from "@/lib/data/companies";
 import type { AddApplicationFormValues } from "@/types/application";
+import { urlValidator } from "@/lib/validators";
 import { ADD_DEFAULTS, CURRENCY_OPTIONS, toFormValues } from "./ApplicationModal.utils";
 
 const { TextArea } = Input;
 
 interface ApplicationModalProps {
-  open: boolean;
-  onClose: () => void;
+  open:         boolean;
+  onClose:      () => void;
+  companies:    CompanyOption[];
   application?: SerializedApplication;
 }
 
-function ApplicationModal({ open, onClose, application }: ApplicationModalProps) {
+function ApplicationModal({ open, onClose, companies, application }: ApplicationModalProps) {
   const isEdit = !!application;
 
-  const [form] = Form.useForm<AddApplicationFormValues>();
-  const [error, setError] = useState<string | null>(null);
+  const [form]                       = Form.useForm<AddApplicationFormValues>();
+  const [error, setError]            = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handleClose = () => {
@@ -47,22 +54,19 @@ function ApplicationModal({ open, onClose, application }: ApplicationModalProps)
     });
   };
 
+  const companyOptions = companies.map((c) => ({ value: c.name }));
+
   return (
     <Modal
       open={open}
       onCancel={handleClose}
       title={
-        <div className="flex items-center gap-2">
-          <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${isEdit ? "bg-amber-500" : "bg-indigo-500"}`}>
-            {isEdit
-              ? <EditOutlined style={{ color: "#fff", fontSize: 14 }} />
-              : <BankOutlined  style={{ color: "#fff", fontSize: 14 }} />
-            }
-          </div>
-          <span className="text-base font-semibold">
-            {isEdit ? "Edit Application" : "Add Application"}
-          </span>
-        </div>
+        <ModalTitle
+          isEdit={isEdit}
+          icon={isEdit ? <EditOutlined /> : <BankOutlined />}
+          addLabel="Add Application"
+          editLabel="Edit Application"
+        />
       }
       footer={null}
       width="min(560px, calc(100vw - 32px))"
@@ -81,8 +85,24 @@ function ApplicationModal({ open, onClose, application }: ApplicationModalProps)
       >
         <Row gutter={12}>
           <Col span={12}>
-            <Form.Item label="Company" name="companyName" rules={[{ required: true, message: "Enter company name" }]}>
-              <Input prefix={<BankOutlined className="text-gray-400" />} placeholder="Google, Stripe..." size="large" />
+            <Form.Item
+              label="Company"
+              name="companyName"
+              rules={[{ required: true, message: "Enter company name" }]}
+            >
+              <AutoComplete
+                options={companyOptions}
+                showSearch={{
+                  filterOption: (input: string, option?: { value: string }) =>
+                    (option?.value ?? "").toLowerCase().includes(input.toLowerCase()),
+                }}
+              >
+                <Input
+                  prefix={<BankOutlined className="text-gray-400" />}
+                  placeholder="Google, Stripe..."
+                  size="large"
+                />
+              </AutoComplete>
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -150,7 +170,7 @@ function ApplicationModal({ open, onClose, application }: ApplicationModalProps)
 
         <Divider style={{ margin: "4px 0 12px" }} />
 
-        <Form.Item label="Job posting URL" name="jobUrl" style={{ marginBottom: 12 }}>
+        <Form.Item label="Job posting URL" name="jobUrl" rules={[urlValidator]} style={{ marginBottom: 12 }}>
           <Input prefix={<LinkOutlined className="text-gray-400" />} placeholder="https://jobs.company.com/..." size="large" />
         </Form.Item>
 

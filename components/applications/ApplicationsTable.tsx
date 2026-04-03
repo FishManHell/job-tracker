@@ -6,14 +6,16 @@ import { useTransition } from "react";
 import { Table, Input, Button, Flex } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import type { SerializedApplication } from "@/lib/data/applications";
+import type { CompanyOption } from "@/lib/data/companies";
 import type { ApplicationStatus } from "@/types/application";
 import { deleteApplication } from "@/actions/applications";
 import { getColumns } from "./ApplicationsTable.columns";
 import ApplicationModal from "./ApplicationModal";
 import StatusSelect from "@/components/common/StatusSelect";
 
-interface Props {
+interface ApplicationsTableProps {
   applications:   SerializedApplication[];
+  companies:      CompanyOption[];
   total:          number;
   page:           number;
   limit:          number;
@@ -23,12 +25,13 @@ interface Props {
 
 function ApplicationsTable({
   applications,
+  companies,
   total,
   page,
   limit,
   currentStatus,
   currentSearch,
-}: Props) {
+}: ApplicationsTableProps) {
   const router   = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
@@ -70,6 +73,7 @@ function ApplicationsTable({
       key={editingApp?.id}
       open={!!editingApp}
       application={editingApp ?? undefined}
+      companies={companies}
       onClose={() => setEditingApp(null)}
     />
     <div className="flex flex-col gap-4">
