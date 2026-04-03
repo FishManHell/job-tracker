@@ -18,9 +18,9 @@ function DashboardLayout({ children, name, email }: DashboardLayoutProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-screen">
       {/* Desktop sidebar */}
-      <div className="hidden xl:block shrink-0">
+      <div className="hidden lg:block shrink-0">
         <Sidebar name={name} email={email} />
       </div>
 
@@ -38,9 +38,9 @@ function DashboardLayout({ children, name, email }: DashboardLayoutProps) {
         <Sidebar name={name} email={email} />
       </Drawer>
 
-      <div className="flex-1 flex flex-col overflow-auto min-w-0">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Mobile top bar */}
-        <div className="xl:hidden flex items-center gap-3 px-4 py-3 bg-[#1a1d2e] shrink-0">
+        <div className="lg:hidden flex items-center gap-3 px-4 py-3 bg-[#1a1d2e] shrink-0">
           <Button
             type="text"
             icon={<MenuOutlined style={{ color: "white", fontSize: 18 }} />}
