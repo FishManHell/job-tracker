@@ -32,7 +32,7 @@ function ProfileHeader({ name, email, createdAt, stats }: ProfileHeaderProps) {
           <p className="text-gray-400 text-xs mt-1">Member since {formatMemberSince(createdAt)}</p>
         </div>
 
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {PROFILE_STATS.map((stat) => (
             <StatCard key={stat.key} config={stat} value={stats[stat.key]} />
           ))}

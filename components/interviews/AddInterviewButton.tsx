@@ -16,7 +16,7 @@ function AddInterviewButton({ applications }: AddInterviewButtonProps) {
   return (
     <>
       <Button type="primary" icon={<PlusOutlined />} size="large" onClick={handleOpen}>
-        Add Interview
+        <span className="hidden sm:inline">Add Interview</span>
       </Button>
       <InterviewModal open={open} onClose={handleClose} applications={applications} />
     </>

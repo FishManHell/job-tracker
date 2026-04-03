@@ -18,7 +18,7 @@ function Sidebar({ name, email }: Props) {
   const onSignOut = () => signOut({ redirectTo: ROUTES.LOGIN });
 
   return (
-    <aside className="w-60 min-h-screen flex flex-col bg-[#1a1d2e] text-white shrink-0">
+    <aside className="w-60 h-full flex flex-col bg-[#1a1d2e] text-white shrink-0">
       {/* Logo */}
       <Link href={ROUTES.DASHBOARD} className="flex items-center gap-3 px-5 py-6 hover:opacity-80 transition-opacity text-white!">
         <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center font-bold text-sm">

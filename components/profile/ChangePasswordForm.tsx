@@ -41,7 +41,7 @@ function ChangePasswordForm() {
         <Form.Item label="Current password" name="currentPassword" rules={[{ required: true }]}>
           <Input.Password prefix={<LockOutlined className="text-gray-400" />} placeholder="••••••••" size="large" />
         </Form.Item>
-        <div className="grid grid-cols-2 gap-x-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
           <Form.Item label="New password" name="newPassword" rules={[{ required: true, min: 8, message: "Min. 8 characters" }]}>
             <Input.Password prefix={<LockOutlined className="text-gray-400" />} placeholder="Min. 8 characters" size="large" />
           </Form.Item>

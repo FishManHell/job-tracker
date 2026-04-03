@@ -11,7 +11,7 @@ function AddApplicationButton() {
   return (
     <>
       <Button type="primary" icon={<PlusOutlined />} size="large" onClick={handleOpen}>
-        Add Application
+        <span className="hidden sm:inline">Add Application</span>
       </Button>
       <ApplicationModal open={open} onClose={handleClose} />
     </>

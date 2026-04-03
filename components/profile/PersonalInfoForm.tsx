@@ -56,7 +56,7 @@ function PersonalInfoForm({ name, email }: Props) {
       <FormAlert message={error} />
 
       <Form form={form} layout="vertical" requiredMark={false} onFinish={onFinish} initialValues={{ name }}>
-        <div className="grid grid-cols-2 gap-x-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
           <Form.Item label="Full name" name="name" rules={[{ required: true, message: "Enter your name" }]}>
             <Input prefix={<UserOutlined className="text-gray-400" />} size="large" disabled={!editing} />
           </Form.Item>

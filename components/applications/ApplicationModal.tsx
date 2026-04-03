@@ -65,7 +65,7 @@ function ApplicationModal({ open, onClose, application }: ApplicationModalProps)
         </div>
       }
       footer={null}
-      width={560}
+      width="min(560px, calc(100vw - 32px))"
       centered
       destroyOnHidden
     >
