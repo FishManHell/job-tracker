@@ -3,7 +3,7 @@
 # 📋 JobTracker
 
 **Your personal job search command center.**
-Track applications, monitor your pipeline, and land that offer.
+Track applications, companies, interviews, and land that offer.
 
 [![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-job--tracker--tau--two.vercel.app-6366f1?style=for-the-badge)](https://job-tracker-tau-two.vercel.app)
 
@@ -29,10 +29,13 @@ JobTracker is a full-stack web app that helps you organize your job hunt from th
 |---------|-------------|
 | 📊 **Dashboard** | At-a-glance stats: total applied, in progress, interviews, offers |
 | 📋 **Applications** | Add, edit, search, filter by status, paginate, delete |
+| 🗓️ **Interviews** | Track interviews per application with type, date, result |
+| 🏢 **Companies** | Card grid with search, stats, website links, status tags, CRUD |
 | 👤 **Profile** | Update name, change password, view personal stats |
 | 🔐 **Authentication** | Email/password + Google OAuth — JWT sessions |
 | 🔑 **Forgot password** | Token-based reset flow via email |
 | 🌗 **Dark / Light mode** | Persisted theme switcher |
+| 📱 **Responsive** | Sidebar on lg+ screens, mobile drawer on smaller screens |
 | 🔒 **Protected routes** | All dashboard pages require a valid session |
 
 ---
@@ -112,20 +115,23 @@ Open [http://localhost:3000](http://localhost:3000) — done.
 │       ├── analytics/
 │       ├── settings/
 │       └── profile/
-├── actions/                  # Server Actions — auth, applications, profile, password reset
+├── actions/                  # Server Actions — applications, interviews, companies, profile, password reset
 ├── components/
 │   ├── applications/         # Table, filters, add/edit modal
 │   ├── auth/                 # Login, register, forgot/reset password forms
-│   ├── common/               # Shared UI: StatusSelect, FormAlert
+│   ├── common/               # Shared UI: StatusSelect, FormAlert, ModalTitle
+│   ├── companies/            # Card grid, CompanyCard, add/edit modal
 │   ├── dashboard/            # Stats, pipeline, recent apps
-│   ├── layout/               # Sidebar navigation
+│   ├── interviews/           # Table, add/edit modal
+│   ├── layout/               # Sidebar, DashboardLayout, mobile drawer
 │   ├── profile/              # ProfileHeader, StatCard, PersonalInfoForm, ChangePasswordForm
 │   └── providers/            # Antd & theme providers
 ├── lib/
 │   ├── auth.ts               # NextAuth configuration
 │   ├── prisma.ts             # Prisma client
+│   ├── validators.ts         # Shared form validators (urlValidator)
 │   ├── status-config.ts      # Application status config & select options
-│   └── data/                 # DB read queries
+│   └── data/                 # DB read queries (applications, interviews, companies)
 ├── prisma/
 │   └── schema.prisma         # DB schema
 └── proxy.ts                  # Auth guard (Next.js 16)
@@ -141,3 +147,16 @@ Open [http://localhost:3000](http://localhost:3000) — done.
                                     ├──► REJECTED ❌
                                     └──► WITHDRAWN 🚫
 ```
+
+---
+
+## 🗂️ DB Relationships
+
+```
+User ──► Company (cascade delete)
+User ──► Application (cascade delete)
+Company ──► Application (restrict — cannot delete company with linked applications)
+Application ──► Interview (cascade delete)
+```
+
+Companies use `findOrCreate` (case-insensitive) when adding an application — no duplicate companies, no orphan records.
