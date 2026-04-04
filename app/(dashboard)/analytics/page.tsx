@@ -1,7 +1,11 @@
-import ComingSoon from "@/components/common/ComingSoon";
+import { auth }             from "@/lib/auth";
+import { getAnalyticsData } from "@/lib/data/analytics";
+import AnalyticsContent     from "@/components/analytics/AnalyticsContent";
 
-function AnalyticsPage() {
-  return <ComingSoon title="Analytics" />;
+export default async function AnalyticsPage() {
+  const session = await auth();
+  const userId  = session!.user!.id!;
+  const data    = await getAnalyticsData(userId);
+
+  return <AnalyticsContent data={data} />;
 }
-
-export default AnalyticsPage;
