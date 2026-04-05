@@ -1,16 +1,17 @@
 import { auth } from "@/lib/auth";
-import { getApplications } from "@/lib/data/applications";
+import { getApplications }  from "@/lib/data/applications";
 import { getCompaniesList } from "@/lib/data/companies";
+import { getUserSettings }  from "@/lib/data/settings";
 import { ApplicationStatus } from "@/types/application";
 import ApplicationsTable from "@/components/applications/ApplicationsTable";
 import AddApplicationButton from "@/components/applications/AddApplicationButton";
 
 // searchParams in Next.js 16 is a Promise
-interface PageProps {
+interface ApplicationsPageProps {
   searchParams: Promise<{ status?: string; search?: string; page?: string }>;
 }
 
-export default async function ApplicationsPage({ searchParams }: PageProps) {
+async function ApplicationsPage({ searchParams }: ApplicationsPageProps) {
   const session = await auth();
   const userId  = session!.user!.id!;
   const params  = await searchParams;
@@ -21,13 +22,14 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
     ? (params.status as typeof ApplicationStatus[keyof typeof ApplicationStatus])
     : undefined;
 
-  const [{ items, total, page, limit }, companies] = await Promise.all([
+  const [{ items, total, page, limit }, companies, settings] = await Promise.all([
     getApplications(userId, {
       status,
       search: params.search,
       page:   params.page ? Number(params.page) : 1,
     }),
     getCompaniesList(userId),
+    getUserSettings(userId),
   ]);
 
   return (
@@ -39,7 +41,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
             {total} total application{total !== 1 ? "s" : ""}
           </p>
         </div>
-        <AddApplicationButton companies={companies} />
+        <AddApplicationButton companies={companies} defaultCurrency={settings.defaultCurrency} />
       </div>
 
       <ApplicationsTable
@@ -54,3 +56,5 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
     </div>
   );
 }
+
+export default ApplicationsPage;

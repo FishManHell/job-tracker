@@ -1,26 +1,28 @@
 import { auth } from "@/lib/auth";
 import { getApplicationStats, getRecentApplications } from "@/lib/data/applications";
 import { getCompaniesList } from "@/lib/data/companies";
+import { getUserSettings } from "@/lib/data/settings";
 import { STAT_CARDS } from "@/lib/dashboard-stats";
 import StatsCard from "@/components/dashboard/StatsCard";
 import RecentApplications from "@/components/dashboard/RecentApplications";
 import PipelineOverview from "@/components/dashboard/PipelineOverview";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 
-export default async function DashboardPage() {
+async function DashboardPage() {
   const session = await auth();
   const userId  = session!.user!.id!;
   const name    = session!.user!.name ?? "there";
 
-  const [stats, recentApps, companies] = await Promise.all([
+  const [stats, recentApps, companies, settings] = await Promise.all([
     getApplicationStats(userId),
     getRecentApplications(userId),
     getCompaniesList(userId),
+    getUserSettings(userId),
   ]);
 
   return (
     <div className="p-4 sm:p-6 lg:p-8">
-      <DashboardHeader name={name} companies={companies} />
+      <DashboardHeader name={name} companies={companies} defaultCurrency={settings.defaultCurrency} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         {STAT_CARDS.map((c) => (
@@ -46,3 +48,5 @@ export default async function DashboardPage() {
     </div>
   );
 }
+
+export default DashboardPage;

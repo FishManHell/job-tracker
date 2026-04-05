@@ -21,6 +21,7 @@ model User {
   sessions     Session[]
   applications Application[]
   companies    Company[]
+  settings     UserSettings?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,6 +71,15 @@ model PasswordResetToken {
 }
 
 // ─── App models ──────────────────────────────────────────────────────────────
+
+model UserSettings {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  defaultCurrency Currency @default(USD)
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+}
 
 model Company {
   id      String  @id @default(cuid())
