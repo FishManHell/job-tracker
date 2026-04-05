@@ -14,26 +14,30 @@ import ModalTitle from "@/components/common/ModalTitle";
 import StatusSelect from "@/components/common/StatusSelect";
 import { formatSalary } from "@/lib/format";
 import { createApplication, updateApplication } from "@/actions/applications";
-import type { SerializedApplication } from "@/lib/data/applications";
+import type { SerializedApplication } from "@/types/application";
 import type { CompanyOption } from "@/lib/data/companies";
 import type { AddApplicationFormValues } from "@/types/application";
+import type { Currency } from "@/types/common";
 import { urlValidator } from "@/lib/validators";
-import { ADD_DEFAULTS, CURRENCY_OPTIONS, toFormValues } from "./ApplicationModal.utils";
+import { CURRENCY_OPTIONS }           from "@/lib/select-options";
+import { ADD_DEFAULTS, toFormValues } from "./ApplicationModal.utils";
 
 const { TextArea } = Input;
 
 interface ApplicationModalProps {
-  open:         boolean;
-  onClose:      () => void;
-  companies:    CompanyOption[];
+  open: boolean;
+  onClose: () => void;
+  companies: CompanyOption[];
   application?: SerializedApplication;
+  defaultCurrency?: Currency;
 }
 
-function ApplicationModal({ open, onClose, companies, application }: ApplicationModalProps) {
-  const isEdit = !!application;
+function ApplicationModal({ open, onClose, companies, application, defaultCurrency }: ApplicationModalProps) {
+  const isEdit= !!application;
+  const addDefaults= defaultCurrency ? { ...ADD_DEFAULTS, currency: defaultCurrency } : ADD_DEFAULTS;
 
-  const [form]                       = Form.useForm<AddApplicationFormValues>();
-  const [error, setError]            = useState<string | null>(null);
+  const [form] = Form.useForm<AddApplicationFormValues>();
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handleClose = () => {
@@ -80,7 +84,7 @@ function ApplicationModal({ open, onClose, companies, application }: Application
         layout="vertical"
         requiredMark={false}
         onFinish={onFinish}
-        initialValues={isEdit ? toFormValues(application) : ADD_DEFAULTS}
+        initialValues={isEdit ? toFormValues(application) : addDefaults}
         style={{ marginTop: 8 }}
       >
         <Row gutter={12}>
@@ -125,15 +129,15 @@ function ApplicationModal({ open, onClose, companies, application }: Application
           </Col>
         </Row>
 
-        <Form.Item name="remote" valuePropName="checked" style={{ marginBottom: 8 }}>
-          <div className="flex items-center justify-between bg-gray-50 rounded-lg px-4 py-2 border border-gray-200">
-            <div>
-              <p className="text-sm font-medium text-gray-700">Remote position</p>
-              <p className="text-xs text-gray-400">Toggle if this is a remote job</p>
-            </div>
-            <Switch />
+        <div className="flex items-center justify-between rounded-lg px-4 py-2 border border-gray-200 mb-2" style={{ backgroundColor: "var(--bg-card)" }}>
+          <div>
+            <p className="text-sm font-medium">Remote position</p>
+            <p className="text-xs text-gray-400">Toggle if this is a remote job</p>
           </div>
-        </Form.Item>
+          <Form.Item name="remote" valuePropName="checked" noStyle>
+            <Switch />
+          </Form.Item>
+        </div>
 
         <Divider style={{ margin: "8px 0 12px" }}>
           <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Salary Range (optional)</span>

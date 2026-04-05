@@ -1,4 +1,4 @@
-import type { SerializedApplication } from "@/lib/data/applications";
+import type { SerializedApplication } from "@/types/application";
 import { AddApplicationFormValues, ApplicationStatus } from "@/types/application";
 import { Currency } from "@/types/common";
 
@@ -8,7 +8,6 @@ export const ADD_DEFAULTS: Partial<AddApplicationFormValues> = {
   remote:   false,
 };
 
-export const CURRENCY_OPTIONS = Object.values(Currency).map((c) => ({ value: c, label: c }));
 
 export function toFormValues(app: SerializedApplication): AddApplicationFormValues {
   return {
