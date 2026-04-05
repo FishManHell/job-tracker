@@ -1,7 +1,7 @@
 import { Tag, Button, Popconfirm, Space } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import type { SerializedInterview } from "@/lib/data/interviews";
+import type { SerializedInterview } from "@/types/interview";
 import { INTERVIEW_TYPE_CONFIG, INTERVIEW_RESULT_CONFIG } from "@/lib/interview-config";
 import { formatDate, getCompanyColor } from "@/lib/format";
 import { createCol } from "@/lib/table";

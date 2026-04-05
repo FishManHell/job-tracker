@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useTransition } from "react";
 import { Table, Input, Button, Flex } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import type { SerializedApplication } from "@/lib/data/applications";
+import type { SerializedApplication } from "@/types/application";
 import type { CompanyOption } from "@/lib/data/companies";
 import type { ApplicationStatus } from "@/types/application";
 import { deleteApplication } from "@/actions/applications";
@@ -32,10 +32,10 @@ function ApplicationsTable({
   currentStatus,
   currentSearch,
 }: ApplicationsTableProps) {
-  const router   = useRouter();
-  const pathname = usePathname();
+  const router= useRouter();
+  const pathname= usePathname();
   const [isPending, startTransition] = useTransition();
-  const [editingApp, setEditingApp]  = useState<SerializedApplication | null>(null);
+  const [editingApp, setEditingApp] = useState<SerializedApplication | null>(null);
 
   // Update URL when filters or pagination change
   function updateParams(updates: Record<string, string | undefined>) {

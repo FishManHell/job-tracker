@@ -1,17 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/auth-helpers";
 import type { ActionState } from "@/types/auth";
 import type { InterviewType, InterviewResult } from "@/types/interview";
 import { ROUTES } from "@/lib/routes";
-
-async function requireUserId(): Promise<string> {
-  const session = await auth();
-  if (!session?.user?.id) throw new Error("Unauthorized");
-  return session.user.id;
-}
 
 export interface CreateInterviewPayload {
   applicationId: string;

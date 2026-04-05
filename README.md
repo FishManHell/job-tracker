@@ -28,9 +28,11 @@ JobTracker is a full-stack web app that helps you organize your job hunt from th
 | Feature | Description |
 |---------|-------------|
 | 📊 **Dashboard** | At-a-glance stats: total applied, in progress, interviews, offers |
-| 📋 **Applications** | Add, edit, search, filter by status, paginate, delete |
+| 📋 **Applications** | Add, edit, search, filter by status, paginate — with Remote/On-site column |
 | 🗓️ **Interviews** | Track interviews per application with type, date, result |
 | 🏢 **Companies** | Card grid with search, stats, website links, status tags, CRUD |
+| 📈 **Analytics** | Charts: applications over time, status breakdown, interview types, top companies, KPI cards |
+| ⚙️ **Settings** | Default currency preference, JSON data export, delete account |
 | 👤 **Profile** | Update name, change password, view personal stats |
 | 🔐 **Authentication** | Email/password + Google OAuth — JWT sessions |
 | 🔑 **Forgot password** | Token-based reset flow via email |
@@ -107,17 +109,19 @@ Open [http://localhost:3000](http://localhost:3000) — done.
 ```
 ├── app/
 │   ├── (auth)/              # /login, /register, /forgot-password, /reset-password
-│   └── (dashboard)/         # protected pages
-│       ├── page.tsx          # Dashboard
-│       ├── applications/
-│       ├── interviews/
-│       ├── companies/
-│       ├── analytics/
-│       ├── settings/
-│       └── profile/
-├── actions/                  # Server Actions — applications, interviews, companies, profile, password reset
+│   ├── (dashboard)/         # protected pages
+│   │   ├── page.tsx          # Dashboard
+│   │   ├── applications/
+│   │   ├── interviews/
+│   │   ├── companies/
+│   │   ├── analytics/
+│   │   ├── settings/
+│   │   └── profile/
+│   └── api/export/           # GET /api/export — JSON data download
+├── actions/                  # Server Actions — applications, interviews, companies, profile, settings, password reset
 ├── components/
 │   ├── applications/         # Table, filters, add/edit modal
+│   ├── analytics/            # Charts, KPI cards
 │   ├── auth/                 # Login, register, forgot/reset password forms
 │   ├── common/               # Shared UI: StatusSelect, FormAlert, ModalTitle
 │   ├── companies/            # Card grid, CompanyCard, add/edit modal
@@ -125,13 +129,26 @@ Open [http://localhost:3000](http://localhost:3000) — done.
 │   ├── interviews/           # Table, add/edit modal
 │   ├── layout/               # Sidebar, DashboardLayout, mobile drawer
 │   ├── profile/              # ProfileHeader, StatCard, PersonalInfoForm, ChangePasswordForm
+│   ├── settings/             # DefaultsForm, DataExportCard, DangerZoneCard
 │   └── providers/            # Antd & theme providers
 ├── lib/
 │   ├── auth.ts               # NextAuth configuration
+│   ├── auth-helpers.ts       # Shared requireUserId helper
+│   ├── colors.ts             # Centralized color palette (COLORS)
 │   ├── prisma.ts             # Prisma client
-│   ├── validators.ts         # Shared form validators (urlValidator)
+│   ├── revalidate.ts         # Shared cache revalidation helpers
+│   ├── select-options.ts     # Shared Ant Design select option arrays
+│   ├── validators.ts         # Shared form validators
 │   ├── status-config.ts      # Application status config & select options
-│   └── data/                 # DB read queries (applications, interviews, companies)
+│   └── data/                 # DB read queries (applications, interviews, companies, analytics, settings)
+├── types/
+│   ├── application.ts        # ApplicationStatus, SerializedApplication, form types
+│   ├── auth.ts               # ActionState, form value types
+│   ├── common.ts             # Currency, HexColor, AntdTagColor
+│   ├── company.ts            # CompanyFormValues
+│   ├── interview.ts          # InterviewType, SerializedInterview
+│   ├── settings.ts           # SettingsData, DefaultsFormValues
+│   └── stat-card.ts          # Generic StatCardConfig<TStats, TLabel>
 ├── prisma/
 │   └── schema.prisma         # DB schema
 └── proxy.ts                  # Auth guard (Next.js 16)
@@ -153,6 +170,7 @@ Open [http://localhost:3000](http://localhost:3000) — done.
 ## 🗂️ DB Relationships
 
 ```
+User ──► UserSettings (1:1, lazy upsert)
 User ──► Company (cascade delete)
 User ──► Application (cascade delete)
 Company ──► Application (restrict — cannot delete company with linked applications)

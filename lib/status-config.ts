@@ -1,14 +1,15 @@
 import type { StatusConfig } from "@/types/application";
 import { ApplicationStatus, StatusLabel } from "@/types/application";
 import { AntdTagColor } from "@/types/common";
+import { COLORS } from "@/lib/colors";
 
 export const STATUS_CONFIG = {
-  APPLIED:   { label: StatusLabel.APPLIED,   tagColor: AntdTagColor.BLUE,    dotColor: "#3b82f6" },
-  SCREENING: { label: StatusLabel.SCREENING, tagColor: AntdTagColor.PURPLE,  dotColor: "#8b5cf6" },
-  INTERVIEW: { label: StatusLabel.INTERVIEW, tagColor: AntdTagColor.ORANGE,  dotColor: "#f59e0b" },
-  OFFER:     { label: StatusLabel.OFFER,     tagColor: AntdTagColor.GREEN,   dotColor: "#10b981" },
-  REJECTED:  { label: StatusLabel.REJECTED,  tagColor: AntdTagColor.RED,     dotColor: "#ef4444" },
-  WITHDRAWN: { label: StatusLabel.WITHDRAWN, tagColor: AntdTagColor.DEFAULT, dotColor: "#6b7280" },
+  APPLIED:   { label: StatusLabel.APPLIED,   tagColor: AntdTagColor.BLUE,    dotColor: COLORS.info    },
+  SCREENING: { label: StatusLabel.SCREENING, tagColor: AntdTagColor.PURPLE,  dotColor: COLORS.purple  },
+  INTERVIEW: { label: StatusLabel.INTERVIEW, tagColor: AntdTagColor.ORANGE,  dotColor: COLORS.warning },
+  OFFER:     { label: StatusLabel.OFFER,     tagColor: AntdTagColor.GREEN,   dotColor: COLORS.success },
+  REJECTED:  { label: StatusLabel.REJECTED,  tagColor: AntdTagColor.RED,     dotColor: COLORS.error   },
+  WITHDRAWN: { label: StatusLabel.WITHDRAWN, tagColor: AntdTagColor.DEFAULT, dotColor: COLORS.muted   },
 } satisfies Record<ApplicationStatus, StatusConfig>;
 
 // Ready-to-use array for Select option labels (value + label only)

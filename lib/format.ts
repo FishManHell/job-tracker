@@ -12,9 +12,11 @@ export function formatDate(iso: string): string {
   return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
 }
 
+import { COLORS } from "@/lib/colors";
+
 const COMPANY_COLOR_PALETTE = [
-  "#6366f1","#3b82f6","#8b5cf6","#ec4899",
-  "#f59e0b","#10b981","#ef4444","#14b8a6",
+  COLORS.primary, COLORS.info,    COLORS.purple, COLORS.pink,
+  COLORS.warning, COLORS.success, COLORS.error,  COLORS.teal,
 ] as const;
 
 export function getCompanyColor(name: string): string {

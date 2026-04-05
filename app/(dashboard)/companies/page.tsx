@@ -5,7 +5,7 @@ import StatsCard from "@/components/dashboard/StatsCard";
 import CompaniesGrid from "@/components/companies/CompaniesGrid";
 import AddCompanyButton from "@/components/companies/AddCompanyButton";
 
-export default async function CompaniesPage() {
+async function CompaniesPage() {
   const session   = await auth();
   const userId    = session!.user!.id!;
   const companies = await getCompanies(userId);
@@ -17,7 +17,7 @@ export default async function CompaniesPage() {
         <div>
           <h1 className="text-lg sm:text-xl xl:text-2xl font-bold">Companies</h1>
           <p className="text-gray-500 text-sm mt-1">
-            {stats.total} total compan{stats.total !== 1 ? "ies" : "y"}
+            {stats.total} total company{stats.total !== 1 ? "ies" : "y"}
           </p>
         </div>
         <AddCompanyButton />
@@ -40,3 +40,5 @@ export default async function CompaniesPage() {
     </div>
   );
 }
+
+export default CompaniesPage

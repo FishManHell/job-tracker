@@ -8,7 +8,7 @@ import FormAlert from "@/components/common/FormAlert";
 import { resetPassword } from "@/actions/password-reset";
 import { ROUTES } from "@/lib/routes";
 
-interface Props {
+interface ResetPasswordFormProps {
   token: string;
 }
 
@@ -17,8 +17,8 @@ interface FormValues {
   confirmPassword: string;
 }
 
-function ResetPasswordForm({ token }: Props) {
-  const router= useRouter();
+function ResetPasswordForm({ token }: ResetPasswordFormProps) {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 

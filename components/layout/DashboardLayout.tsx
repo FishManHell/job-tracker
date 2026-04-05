@@ -6,6 +6,7 @@ import { Drawer, Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { ROUTES } from "@/lib/routes";
+import { COLORS } from "@/lib/colors";
 import Sidebar from "./Sidebar";
 
 interface DashboardLayoutProps {
@@ -31,7 +32,7 @@ function DashboardLayout({ children, name, email }: DashboardLayoutProps) {
         placement="left"
         styles={{
           wrapper: { width: 240 },
-          body:    { padding: 0, backgroundColor: "#1a1d2e", height: "100%" },
+          body:    { padding: 0, backgroundColor: COLORS.sidebar, height: "100%" },
           header:  { display: "none" },
         }}
       >

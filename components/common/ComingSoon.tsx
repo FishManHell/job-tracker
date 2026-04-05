@@ -1,8 +1,8 @@
-interface Props {
+interface ComingSoonProps {
   title: string;
 }
 
-function ComingSoon({ title }: Props) {
+function ComingSoon({ title }: ComingSoonProps) {
   return (
     <div className="p-8 flex items-center justify-center h-full">
       <div className="text-center text-gray-500">

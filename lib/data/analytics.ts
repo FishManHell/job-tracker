@@ -1,7 +1,7 @@
-import { prisma }                                  from "@/lib/prisma";
-import { STATUS_CONFIG }                           from "@/lib/status-config";
-import { ApplicationStatus }                       from "@/types/application";
-import { InterviewType }                           from "@/types/interview";
+import { prisma } from "@/lib/prisma";
+import { STATUS_CONFIG } from "@/lib/status-config";
+import { ApplicationStatus } from "@/types/application";
+import { InterviewType } from "@/types/interview";
 import type {
   MonthlyPoint, StatusSlice, InterviewTypePoint,
   TopCompanyPoint, AnalyticsData,
@@ -9,10 +9,23 @@ import type {
 
 // ─── Prisma row types ─────────────────────────────────────────────────────────
 
-interface AppRow         { id: string; status: string; appliedAt: Date }
-interface InterviewRow   { applicationId: string; scheduledAt: Date }
-interface InterviewCount { type: string; _count: { _all: number } }
-interface CompanyGroup   { companyName: string; _count: { _all: number } }
+interface AppRow {
+  id: string;
+  status: string;
+  appliedAt: Date
+}
+interface InterviewRow {
+  applicationId: string;
+  scheduledAt: Date
+}
+interface InterviewCount {
+  type: string;
+  _count: { _all: number }
+}
+interface CompanyGroup {
+  companyName: string;
+  _count: { _all: number }
+}
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 

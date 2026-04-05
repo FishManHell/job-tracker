@@ -2,7 +2,7 @@
 
 import { Card, Table } from "antd";
 import Link from "next/link";
-import type { SerializedApplication } from "@/lib/data/applications";
+import type { SerializedApplication } from "@/types/application";
 import { columns } from "./RecentApplications.columns";
 import { ROUTES } from "@/lib/routes";
 

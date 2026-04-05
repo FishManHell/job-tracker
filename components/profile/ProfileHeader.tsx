@@ -2,6 +2,7 @@ import { Card, Avatar, Tag } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import type { ApplicationStats } from "@/lib/data/applications";
 import { PROFILE_STATS } from "@/lib/profile-stats";
+import { COLORS } from "@/lib/colors";
 import { getInitials, formatMemberSince } from "./ProfileHeader.utils";
 import StatCard from "./StatCard";
 
@@ -15,10 +16,10 @@ interface ProfileHeaderProps {
 function ProfileHeader({ name, email, createdAt, stats }: ProfileHeaderProps) {
   return (
     <Card styles={{ body: { padding: 0 } }}>
-      <div className="h-24 rounded-t-lg" style={{ background: "linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #1a1d2e 100%)" }} />
+      <div className="h-24 rounded-t-lg" style={{ background: `linear-gradient(135deg, ${COLORS.primary} 0%, #4f46e5 50%, ${COLORS.sidebar} 100%)` }} />
       <div className="px-6 pb-6">
         <div className="flex items-end justify-between -mt-8 mb-5">
-          <Avatar size={72} style={{ backgroundColor: "#6366f1", fontSize: 24, fontWeight: 700, border: "3px solid white" }}>
+          <Avatar size={72} style={{ backgroundColor: COLORS.primary, fontSize: 24, fontWeight: 700, border: "3px solid white" }}>
             {getInitials(name || email)}
           </Avatar>
           <div className="flex items-center gap-2">

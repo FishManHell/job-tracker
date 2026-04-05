@@ -3,7 +3,8 @@
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { App, ConfigProvider, theme as antdTheme } from "antd";
 import { useResolvedTheme } from "@/hooks/use-resolved-theme";
-import {ReactNode} from "react";
+import { COLORS } from "@/lib/colors";
+import { ReactNode } from "react";
 
 function AntdProvider({ children }: { children: ReactNode }) {
   const { isDark } = useResolvedTheme();
@@ -14,7 +15,7 @@ function AntdProvider({ children }: { children: ReactNode }) {
         theme={{
           algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
           token: {
-            colorPrimary: "#6366f1",
+            colorPrimary: COLORS.primary,
             borderRadius: 10,
             fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
           },

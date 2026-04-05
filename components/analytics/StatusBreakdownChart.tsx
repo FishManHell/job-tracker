@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo }                            from "react";
-import { Doughnut }                           from "react-chartjs-2";
-import type { ChartData }                     from "chart.js";
+import { useMemo } from "react";
+import { Doughnut } from "react-chartjs-2";
+import type { ChartData } from "chart.js";
 import { buildDoughnutOptions, type ChartColors } from "@/lib/chart-options";
-import { ChartCard }                          from "./ChartCard";
+import { ChartCard } from "./ChartCard";
 import type { StatusSlice } from "@/types/analytics";
 
 interface StatusBreakdownChartProps {
@@ -16,9 +16,9 @@ export function StatusBreakdownChart({ data, colors }: StatusBreakdownChartProps
   const chartData = useMemo<ChartData<"doughnut">>(() => ({
     labels:   data.map(s => s.label),
     datasets: [{
-      data:            data.map(s => s.count),
+      data: data.map(s => s.count),
       backgroundColor: data.map(s => s.color),
-      hoverOffset:     6,
+      hoverOffset: 6,
     }],
   }), [data]);
 

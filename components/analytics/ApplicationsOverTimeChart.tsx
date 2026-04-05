@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo }                        from "react";
-import { Line }                           from "react-chartjs-2";
-import type { ChartData }                 from "chart.js";
+import { useMemo } from "react";
+import { Line } from "react-chartjs-2";
+import type { ChartData } from "chart.js";
 import { buildLineOptions, type ChartColors } from "@/lib/chart-options";
-import { ChartCard }                      from "./ChartCard";
+import { COLORS } from "@/lib/colors";
+import { ChartCard } from "./ChartCard";
 import type { MonthlyPoint } from "@/types/analytics";
 
 interface ApplicationsOverTimeChartProps {
@@ -19,11 +20,11 @@ export function ApplicationsOverTimeChart({ data, colors, className }: Applicati
   const chartData = useMemo<ChartData<"line">>(() => ({
     labels:   data.map(p => p.month),
     datasets: [{
-      data:                 data.map(p => p.count),
-      borderColor:          "#6366f1",
+      data: data.map(p => p.count),
+      borderColor:          COLORS.primary,
       backgroundColor:      "rgba(99,102,241,0.15)",
       fill:                 true,
-      pointBackgroundColor: "#6366f1",
+      pointBackgroundColor: COLORS.primary,
     }],
   }), [data]);
 

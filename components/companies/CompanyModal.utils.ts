@@ -1,9 +1,5 @@
-import type { CompanyWithStats } from "@/lib/data/companies";
-
-export interface CompanyFormValues {
-  name:     string;
-  website?: string;
-}
+import type { CompanyWithStats }  from "@/lib/data/companies";
+import type { CompanyFormValues } from "@/types/company";
 
 export const ADD_DEFAULTS: CompanyFormValues = {
   name:    "",

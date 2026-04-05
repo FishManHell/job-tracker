@@ -1,7 +1,7 @@
 import dayjs, { type Dayjs } from "dayjs";
 import { InterviewType, InterviewResult } from "@/types/interview";
 import { INTERVIEW_TYPE_CONFIG, INTERVIEW_RESULT_CONFIG } from "@/lib/interview-config";
-import type { SerializedInterview } from "@/lib/data/interviews";
+import type { SerializedInterview } from "@/types/interview";
 
 export interface AddInterviewFormValues {
   applicationId: string;

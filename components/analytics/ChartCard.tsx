@@ -1,5 +1,5 @@
 import { Card, Empty } from "antd";
-import { ReactNode }   from "react";
+import { ReactNode } from "react";
 
 const CHART_HEIGHT = 280;
 

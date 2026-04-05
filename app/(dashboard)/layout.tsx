@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { auth } from "@/lib/auth";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 
-export default async function Layout({ children }: { children: ReactNode }) {
+async function Layout({ children }: { children: ReactNode }) {
   const session = await auth();
   const name    = session?.user?.name  ?? "";
   const email   = session?.user?.email ?? "";
@@ -13,3 +13,5 @@ export default async function Layout({ children }: { children: ReactNode }) {
     </DashboardLayout>
   );
 }
+
+export default Layout

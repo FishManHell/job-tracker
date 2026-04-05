@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Card, Table } from "antd";
-import type { SerializedInterview } from "@/lib/data/interviews";
+import type { SerializedInterview } from "@/types/interview";
 import type { ApplicationOption } from "@/lib/data/applications";
 import { deleteInterview } from "@/actions/interviews";
 import { getColumns } from "./InterviewsTable.columns";
@@ -15,14 +15,14 @@ interface InterviewsTableProps {
 
 function InterviewsTable({ interviews, applications }: InterviewsTableProps) {
   const [editingInterview, setEditingInterview] = useState<SerializedInterview | null>(null);
-  const [isPending, startTransition]            = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   function handleDelete(id: string) {
     startTransition(async () => {
       await deleteInterview(id);
     });
   }
-  const onClose = () => setEditingInterview(null)
+  const onClose = () => setEditingInterview(null);
 
   const columns = getColumns(setEditingInterview, handleDelete);
 

@@ -1,5 +1,6 @@
 import type { InterviewStats } from "@/lib/data/interviews";
-import type { HexColor } from "@/types/common";
+import type { StatCardConfig } from "@/types/stat-card";
+import { COLORS } from "@/lib/colors";
 
 export const InterviewStatLabel = {
   TOTAL:    "Total Interviews",
@@ -9,33 +10,27 @@ export const InterviewStatLabel = {
 } as const;
 export type InterviewStatLabel = typeof InterviewStatLabel[keyof typeof InterviewStatLabel];
 
-export interface InterviewStatCardConfig {
-  label:       InterviewStatLabel;
-  borderColor: HexColor;
-  subColor:    HexColor;
-  getValue: (stats: InterviewStats) => number;
-  getSub:   (stats: InterviewStats) => string;
-}
+type InterviewStatCardConfig = StatCardConfig<InterviewStats, InterviewStatLabel>;
 
 export const INTERVIEW_STAT_CARDS: InterviewStatCardConfig[] = [
   {
     label:       InterviewStatLabel.TOTAL,
-    borderColor: "#6366f1",
-    subColor:    "#6366f1",
+    borderColor: COLORS.primary,
+    subColor:    COLORS.primary,
     getValue: (s) => s.total,
     getSub:   (s) => `${s.upcoming} upcoming`,
   },
   {
     label:       InterviewStatLabel.UPCOMING,
-    borderColor: "#3b82f6",
-    subColor:    "#3b82f6",
+    borderColor: COLORS.info,
+    subColor:    COLORS.info,
     getValue: (s) => s.upcoming,
     getSub:   ()  => "Scheduled ahead",
   },
   {
     label:       InterviewStatLabel.PASSED,
-    borderColor: "#10b981",
-    subColor:    "#10b981",
+    borderColor: COLORS.success,
+    subColor:    COLORS.success,
     getValue: (s) => s.passed,
     getSub:   (s) => s.total > 0
       ? `${Math.round((s.passed / s.total) * 100)}% success rate`
@@ -43,8 +38,8 @@ export const INTERVIEW_STAT_CARDS: InterviewStatCardConfig[] = [
   },
   {
     label:       InterviewStatLabel.FAILED,
-    borderColor: "#ef4444",
-    subColor:    "#ef4444",
+    borderColor: COLORS.error,
+    subColor:    COLORS.error,
     getValue: (s) => s.failed,
     getSub:   (s) => s.total > 0
       ? `${Math.round((s.failed / s.total) * 100)}% rejection rate`

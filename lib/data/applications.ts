@@ -1,16 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import type { ApplicationStatus } from "@/types/application";
 import type { Application } from "@prisma/client";
+import type { ApplicationStatus, SerializedApplication } from "@/types/application";
 
-// Date objects cannot be passed to Client Components as props —
-// serialize them to strings at the Server Component level.
-export type SerializedApplication = Omit<Application, "appliedAt" | "createdAt" | "updatedAt"> & {
-  appliedAt: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export function serializeApplication(app: Application): SerializedApplication {
+function serializeApplication(app: Application): SerializedApplication {
   return {
     ...app,
     appliedAt: app.appliedAt.toISOString(),

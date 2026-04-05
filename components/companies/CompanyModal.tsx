@@ -8,7 +8,8 @@ import ModalTitle from "@/components/common/ModalTitle";
 import { createCompany, updateCompany } from "@/actions/companies";
 import { urlValidator } from "@/lib/validators";
 import type { CompanyWithStats } from "@/lib/data/companies";
-import { ADD_DEFAULTS, toFormValues, type CompanyFormValues } from "./CompanyModal.utils";
+import type { CompanyFormValues } from "@/types/company";
+import { ADD_DEFAULTS, toFormValues } from "./CompanyModal.utils";
 
 interface CompanyModalProps {
   open:     boolean;
@@ -35,7 +36,7 @@ function CompanyModal({ open, onClose, company }: CompanyModalProps) {
         ? await updateCompany(company.id, values)
         : await createCompany(values);
 
-      if (result && "error" in result) setError(result.error);
+      if (result?.error) setError(result.error);
       else handleClose();
     });
   };

@@ -1,23 +1,10 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/auth-helpers";
+import { revalidateAppRelatedPages } from "@/lib/revalidate";
 import type { ActionState } from "@/types/auth";
 import type { AddApplicationFormValues } from "@/types/application";
-import { ROUTES } from "@/lib/routes";
-
-async function requireUserId(): Promise<string> {
-  const session = await auth();
-  if (!session?.user?.id) throw new Error("Unauthorized");
-  return session.user.id;
-}
-
-function revalidateApplicationPages() {
-  revalidatePath(ROUTES.DASHBOARD);
-  revalidatePath(ROUTES.APPLICATIONS);
-  revalidatePath(ROUTES.COMPANIES);
-}
 
 // Find existing company by name (case-insensitive) or create a new one
 async function findOrCreateCompany(
@@ -61,7 +48,7 @@ export async function createApplication(
     });
   });
 
-  revalidateApplicationPages();
+  revalidateAppRelatedPages();
   return undefined;
 }
 
@@ -104,7 +91,7 @@ export async function updateApplication(
     },
   });
 
-  revalidateApplicationPages();
+  revalidateAppRelatedPages();
   return undefined;
 }
 
@@ -120,6 +107,6 @@ export async function deleteApplication(id: string): Promise<ActionState> {
 
   await prisma.application.delete({ where: { id } });
 
-  revalidateApplicationPages();
+  revalidateAppRelatedPages();
   return undefined;
 }

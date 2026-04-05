@@ -2,18 +2,19 @@
 
 import { Card, Progress, Flex } from "antd";
 import type { ApplicationStats } from "@/lib/data/applications";
+import { COLORS } from "@/lib/colors";
 
-interface Props {
+interface PipelineOverviewProps {
   stats: ApplicationStats;
 }
 
-function PipelineOverview({ stats }: Props) {
+function PipelineOverview({ stats }: PipelineOverviewProps) {
   const pipeline = [
-    { label: "Applied",   count: stats.applied,   color: "#6366f1" },
-    { label: "Screening", count: stats.screening, color: "#3b82f6" },
-    { label: "Interview", count: stats.interview, color: "#f59e0b" },
-    { label: "Offer",     count: stats.offer,     color: "#10b981" },
-    { label: "Rejected",  count: stats.rejected,  color: "#ef4444" },
+    { label: "Applied",   count: stats.applied,   color: COLORS.primary },
+    { label: "Screening", count: stats.screening, color: COLORS.info    },
+    { label: "Interview", count: stats.interview, color: COLORS.warning },
+    { label: "Offer",     count: stats.offer,     color: COLORS.success },
+    { label: "Rejected",  count: stats.rejected,  color: COLORS.error   },
   ];
 
   const total = stats.total || 1; // avoid division by zero

@@ -1,14 +1,14 @@
 "use client";
 
 import "@/lib/chart-registry";
-import { useChartTheme }              from "@/hooks/use-chart-theme";
-import { KpiCard }                    from "./KpiCard";
-import { ApplicationsOverTimeChart }  from "./ApplicationsOverTimeChart";
-import { StatusBreakdownChart }       from "./StatusBreakdownChart";
-import { InterviewTypesChart }        from "./InterviewTypesChart";
-import { TopCompaniesChart }          from "./TopCompaniesChart";
-import { KPI_CONFIG }                 from "./kpi-config";
-import type { AnalyticsData }         from "@/types/analytics";
+import { useChartTheme } from "@/hooks/use-chart-theme";
+import { KpiCard } from "./KpiCard";
+import { ApplicationsOverTimeChart } from "./ApplicationsOverTimeChart";
+import { StatusBreakdownChart } from "./StatusBreakdownChart";
+import { InterviewTypesChart } from "./InterviewTypesChart";
+import { TopCompaniesChart } from "./TopCompaniesChart";
+import { KPI_CONFIG } from "./kpi-config";
+import type { AnalyticsData } from "@/types/analytics";
 
 interface AnalyticsContentProps {
   data: AnalyticsData;
@@ -25,19 +25,17 @@ export default function AnalyticsContent({ data }: AnalyticsContentProps) {
       </div>
 
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-        {KPI_CONFIG.map(kpi => (
-          <KpiCard key={kpi.label} {...kpi} value={kpi.getValue(data)} />
-        ))}
+        {KPI_CONFIG.map(kpi => <KpiCard key={kpi.label} {...kpi} value={kpi.getValue(data)} />)}
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
         <ApplicationsOverTimeChart data={data.applicationsOverTime} colors={colors} className="xl:col-span-2" />
-        <StatusBreakdownChart      data={data.statusBreakdown}      colors={colors} />
+        <StatusBreakdownChart data={data.statusBreakdown} colors={colors} />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <InterviewTypesChart data={data.interviewTypes} colors={colors} />
-        <TopCompaniesChart   data={data.topCompanies}   colors={colors} />
+        <TopCompaniesChart data={data.topCompanies} colors={colors} />
       </div>
     </div>
   );

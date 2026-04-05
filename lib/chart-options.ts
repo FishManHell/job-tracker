@@ -1,8 +1,9 @@
 import type { ChartOptions } from "chart.js";
+import { COLORS } from "@/lib/colors";
 
 export const PALETTE = [
-  "#6366f1", "#3b82f6", "#f59e0b", "#10b981",
-  "#8b5cf6", "#ef4444", "#ec4899", "#14b8a6",
+  COLORS.primary, COLORS.info,    COLORS.warning, COLORS.success,
+  COLORS.purple,  COLORS.error,   COLORS.pink,    COLORS.teal,
 ] as const;
 
 // ─── Theme-aware colors ───────────────────────────────────────────────────────

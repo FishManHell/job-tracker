@@ -1,6 +1,7 @@
 import { AntdTagColor } from "@/types/common";
 import type { InterviewType, InterviewResult } from "@/types/interview";
 import type { HexColor } from "@/types/common";
+import { COLORS } from "@/lib/colors";
 
 export interface InterviewTypeConfig {
   label:    string;
@@ -24,7 +25,7 @@ export const INTERVIEW_TYPE_CONFIG = {
 } satisfies Record<InterviewType, InterviewTypeConfig>;
 
 export const INTERVIEW_RESULT_CONFIG = {
-  PENDING: { label: "Pending", tagColor: AntdTagColor.DEFAULT, dotColor: "#6b7280" },
-  PASSED:  { label: "Passed",  tagColor: AntdTagColor.GREEN,   dotColor: "#10b981" },
-  FAILED:  { label: "Failed",  tagColor: AntdTagColor.RED,     dotColor: "#ef4444" },
+  PENDING: { label: "Pending", tagColor: AntdTagColor.DEFAULT, dotColor: COLORS.muted   },
+  PASSED:  { label: "Passed",  tagColor: AntdTagColor.GREEN,   dotColor: COLORS.success },
+  FAILED:  { label: "Failed",  tagColor: AntdTagColor.RED,     dotColor: COLORS.error   },
 } satisfies Record<InterviewResult, InterviewResultConfig>;

@@ -8,7 +8,7 @@ import ModalTitle from "@/components/common/ModalTitle";
 import { INTERVIEW_RESULT_CONFIG } from "@/lib/interview-config";
 import { renderDotOption } from "@/components/common/select-helpers";
 import { createInterview, updateInterview } from "@/actions/interviews";
-import type { SerializedInterview } from "@/lib/data/interviews";
+import type { SerializedInterview } from "@/types/interview";
 import type { ApplicationOption } from "@/lib/data/applications";
 import {
   ADD_DEFAULTS,
@@ -28,10 +28,10 @@ interface InterviewModalProps {
 }
 
 function InterviewModal({ open, onClose, applications, interview }: InterviewModalProps) {
-  const isEdit = !!interview;
+  const isEdit= !!interview;
 
-  const [form]                    = Form.useForm<AddInterviewFormValues>();
-  const [error, setError]         = useState<string | null>(null);
+  const [form] = Form.useForm<AddInterviewFormValues>();
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handleClose = () => {

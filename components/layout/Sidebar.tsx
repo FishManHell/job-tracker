@@ -9,12 +9,12 @@ import { getInitials } from "@/components/profile/ProfileHeader.utils";
 import SidebarNav from "./SidebarNav";
 import ThemeToggle from "./ThemeToggle";
 
-interface Props {
+interface SidebarProps {
   name:  string;
   email: string;
 }
 
-function Sidebar({ name, email }: Props) {
+function Sidebar({ name, email }: SidebarProps) {
   const onSignOut = () => signOut({ redirectTo: ROUTES.LOGIN });
 
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo }            from "react";
-import { useResolvedTheme }   from "@/hooks/use-resolved-theme";
+import { useMemo } from "react";
+import { useResolvedTheme } from "@/hooks/use-resolved-theme";
 import { chartColors, type ChartColors } from "@/lib/chart-options";
 
 export interface ChartTheme {

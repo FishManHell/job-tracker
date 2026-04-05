@@ -1,11 +1,11 @@
 import type { ProfileStatConfig } from "@/types/application";
 
-interface Props {
+interface StatCardProps {
   config: ProfileStatConfig;
   value:  number;
 }
 
-function StatCard({ config, value }: Props) {
+function StatCard({ config, value }: StatCardProps) {
   return (
     <div className="bg-gray-50 rounded-xl p-3 text-center border border-gray-100">
       <p className="text-xl font-bold" style={{ color: config.color }}>{value}</p>

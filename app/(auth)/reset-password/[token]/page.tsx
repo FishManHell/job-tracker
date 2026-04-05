@@ -3,11 +3,11 @@ import Logo from "@/components/common/Logo";
 import { prisma } from "@/lib/prisma";
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
 
-interface PageProps {
+interface ResetPasswordPageProps {
   params: Promise<{ token: string }>;
 }
 
-export default async function ResetPasswordPage({ params }: PageProps) {
+export default async function ResetPasswordPage({ params }: ResetPasswordPageProps) {
   const { token } = await params;
 
   const record = await prisma.passwordResetToken.findUnique({ where: { token } });

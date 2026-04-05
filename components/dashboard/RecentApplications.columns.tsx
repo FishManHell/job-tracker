@@ -1,6 +1,6 @@
 import { Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import type { SerializedApplication } from "@/lib/data/applications";
+import type { SerializedApplication } from "@/types/application";
 import type { ApplicationStatus } from "@/types/application";
 import { STATUS_CONFIG } from "@/lib/status-config";
 import { getCompanyColor, formatDate } from "@/lib/format";
@@ -42,6 +42,14 @@ export const columns: ColumnsType<SerializedApplication> = [
         {STATUS_CONFIG[status as ApplicationStatus].label}
       </Tag>
     ),
+  }),
+  col({
+    title:     "Remote",
+    dataIndex: "remote",
+    width:     90,
+    render: (v: boolean) => v
+      ? <Tag color="blue">Remote</Tag>
+      : <Tag>On-site</Tag>,
   }),
   col({
     title:     "Next Step",

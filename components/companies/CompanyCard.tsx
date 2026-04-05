@@ -17,11 +17,11 @@ const MAX_VISIBLE_STATUSES = 3;
 
 function CompanyCard({ company }: CompanyCardProps) {
   const { message } = App.useApp();
-  const [editing, setEditing]            = useState(false);
-  const [isPending, startTransition]     = useTransition();
-  const avatarColor                      = getCompanyColor(company.name);
-  const visibleStatuses                  = company.statuses.slice(0, MAX_VISIBLE_STATUSES);
-  const hiddenCount                      = company.statuses.length - MAX_VISIBLE_STATUSES;
+  const [editing, setEditing] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const avatarColor= getCompanyColor(company.name);
+  const visibleStatuses= company.statuses.slice(0, MAX_VISIBLE_STATUSES);
+  const hiddenCount= company.statuses.length - MAX_VISIBLE_STATUSES;
 
   const handleDelete = () => {
     startTransition(async () => {

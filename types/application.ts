@@ -48,6 +48,26 @@ export interface ProfileStatConfig {
   color: HexColor;
 }
 
+export interface SerializedApplication {
+  id:          string;
+  userId:      string;
+  companyId:   string;
+  companyName: string;
+  position:    string;
+  status:      ApplicationStatus;
+  salaryMin:   number | null;
+  salaryMax:   number | null;
+  currency:    Currency;
+  location:    string | null;
+  remote:      boolean;
+  jobUrl:      string | null;
+  notes:       string | null;
+  appliedAt:   string;
+  nextStep:    string | null;
+  createdAt:   string;
+  updatedAt:   string;
+}
+
 export interface AddApplicationFormValues {
   companyName: string;
   position:    string;

@@ -1,18 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import type { InterviewType, InterviewResult } from "@/types/interview";
-
-export type SerializedInterview = {
-  id:            string;
-  applicationId: string;
-  type:          InterviewType;
-  scheduledAt:   string;
-  durationMins:  number | null;
-  location:      string | null;
-  notes:         string | null;
-  result:        InterviewResult;
-  companyName:   string;
-  position:      string;
-};
+import type { InterviewType, InterviewResult, SerializedInterview } from "@/types/interview";
 
 export interface InterviewStats {
   total:    number;

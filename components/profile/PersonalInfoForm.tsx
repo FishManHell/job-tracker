@@ -6,12 +6,12 @@ import { UserOutlined, MailOutlined, EditOutlined } from "@ant-design/icons";
 import FormAlert from "@/components/common/FormAlert";
 import { updateProfile } from "@/actions/profile";
 
-interface Props {
+interface PersonalInfoFormProps {
   name:  string;
   email: string;
 }
 
-function PersonalInfoForm({ name, email }: Props) {
+function PersonalInfoForm({ name, email }: PersonalInfoFormProps) {
   const [editing, setEditing] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);

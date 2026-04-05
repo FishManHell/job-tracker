@@ -5,7 +5,7 @@ import ProfileHeader from "@/components/profile/ProfileHeader";
 import PersonalInfoForm from "@/components/profile/PersonalInfoForm";
 import ChangePasswordForm from "@/components/profile/ChangePasswordForm";
 
-export default async function ProfilePage() {
+async function ProfilePage() {
   const session = await auth();
   const userId  = session!.user!.id!;
 
@@ -34,3 +34,5 @@ export default async function ProfilePage() {
     </div>
   );
 }
+
+export default ProfilePage

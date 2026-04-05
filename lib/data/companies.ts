@@ -12,12 +12,12 @@ export async function getCompaniesList(userId: string): Promise<CompanyOption[]>
   });
 }
 
-export type CompanyWithStats = Omit<Company, "createdAt" | "updatedAt"> & {
+export interface CompanyWithStats extends Omit<Company, "createdAt" | "updatedAt"> {
   createdAt:        string;
   updatedAt:        string;
   applicationCount: number;
   statuses:         ApplicationStatus[];
-};
+}
 
 export interface CompanyStats {
   total:           number;
